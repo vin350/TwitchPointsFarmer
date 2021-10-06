@@ -1,0 +1,81 @@
+﻿<Window x:Class="TwitchPointsFarmer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TwitchPointsFarmer"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="3*" />
+            </Grid.RowDefinitions>
+            <GroupBox Header="Channels" Margin="5">
+                <ScrollViewer Grid.Row="1">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+                            <Button x:Name="AddChannelButton" Content="Add Channel" Margin="2"/>
+                            <Button x:Name="RemChannelButton" Content="Rem. Channel" Margin="2"/>
+                        </StackPanel>
+                        <ListBox x:Name="ChannelsListBox">
+
+                        </ListBox>
+                    </StackPanel>
+
+
+                </ScrollViewer>
+            </GroupBox>
+            <GroupBox Grid.Row="1" Header="Accounts: " Margin="5">
+                <ScrollViewer Grid.Row="1">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+                            <Button x:Name="AddAccountButton" Content="Add Account" Margin="2"/>
+                            <Button x:Name="RemAccountButton" Content="Rem. Account" Margin="2"/>
+                        </StackPanel>
+                        <ListBox x:Name="AccountsListBox">
+
+                        </ListBox>
+                    </StackPanel>
+
+
+                </ScrollViewer>
+            </GroupBox>
+        </Grid>
+
+        <!--#region msg-->
+        <StackPanel Grid.Column="1" Orientation="Horizontal"
+                    HorizontalAlignment="Left" Margin="10,0">
+            <TextBox Text="Mensagem aqui!" HorizontalAlignment="Center"
+                     VerticalAlignment="Center" Width="auto" BorderThickness="2"
+                     Padding="10,0,10,0"
+                     />
+            <Button Content="send global msg" Grid.Column="1"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Padding="3" Margin="3"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Orientation="Horizontal"
+                    HorizontalAlignment="Right" Margin="10,0">
+            <ComboBox VerticalAlignment="Center" Margin="5" Text="Canal" Width="auto">
+
+            </ComboBox>
+            <TextBox Text="Mensagem aqui!" HorizontalAlignment="Center"
+                     VerticalAlignment="Center" Width="auto" BorderThickness="2"
+                     Padding="10,0,10,0"
+                     />
+            <Button Content="Send message" Grid.Column="1"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Padding="3" Margin="3"/>
+        </StackPanel>
+        <!--#endregion-->
+    </Grid>
+</Window>
