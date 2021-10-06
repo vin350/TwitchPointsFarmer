@@ -24,8 +24,8 @@
                 <ScrollViewer Grid.Row="1">
                     <StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
-                            <Button x:Name="AddChannelButton" Content="Add Channel" Margin="2"/>
-                            <Button x:Name="RemChannelButton" Content="Rem. Channel" Margin="2"/>
+                            <Button Click="AddChannelButton_Click" x:Name="AddChannelButton" Content="Add Channel" Margin="2"/>
+                            <Button Click="RemChannelButton_Click" x:Name="RemChannelButton" Content="Rem Channel" Margin="2"/>
                         </StackPanel>
                         <ListBox x:Name="ChannelsListBox">
 
@@ -40,7 +40,7 @@
                     <StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
                             <Button x:Name="AddAccountButton" Content="Add Account" Margin="2"/>
-                            <Button x:Name="RemAccountButton" Content="Rem. Account" Margin="2"/>
+                            <Button x:Name="RemAccountButton" Content="Rem Account" Margin="2"/>
                         </StackPanel>
                         <ListBox x:Name="AccountsListBox">
 
