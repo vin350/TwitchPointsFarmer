@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using TwitchPointsFarmer.Components;
 using TwitchPointsFarmer.Models;
-using System.Linq;
 
 namespace TwitchPointsFarmer
 {
@@ -12,11 +12,17 @@ namespace TwitchPointsFarmer
     public partial class MainWindow : Window
     {
         /// <summary>
-        /// A list with all
+        /// A list with all the current Accounts
         /// </summary>
         public List<User> MyUsers { get; set; }
+        /// <summary>
+        /// A list with all current subscribed channels
+        /// </summary>
         public List<string> MyChannels { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainWindow"/>
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
@@ -25,6 +31,8 @@ namespace TwitchPointsFarmer
             MyUsers = new();
             MyChannels = new();
         }
+
+        #region Events
 
         private void AddChannelButton_Click(object sender, RoutedEventArgs e)
         {
@@ -71,7 +79,7 @@ namespace TwitchPointsFarmer
 
             authcode = authcodeInput.GetInput();
             if (authcode == InputWindow.CancelConst) return;
-            User user = new User() { Username = username, AuthCode = authcode };
+            User user = new() { Username = username, AuthCode = authcode };
 
             //checks if exists again, just to be sure, but this time checks if both username and authcode
             if (MyUsers.Contains(user))
@@ -103,5 +111,7 @@ namespace TwitchPointsFarmer
             //remove from the UI
             AccountsListBox.Items.Remove(AccountsListBox.SelectedItem);
         }
+
+        #endregion
     }
 }

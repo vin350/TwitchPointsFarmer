@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace TwitchPointsFarmer.Components
 {
@@ -21,6 +11,14 @@ namespace TwitchPointsFarmer.Components
     {
         public bool IsCancelled { get; set; }
         public static string CancelConst { get; } = @"%%CANCELLED%%";
+        /// <summary>
+        /// Creates a new instance of a <see cref="InputWindow"/>
+        /// </summary>
+        /// <param name="content">The text that will be displayed for the user in the window</param>
+        /// <param name="windowTitle">The window title, somthing generic</param>
+        /// <param name="defaultValue">The default value for the input box, if not written, will be <code>""</code></param>
+        /// <param name="fontFamily">The Font family string, defaults to Arial</param>
+        /// <param name="fontSize">The font size, the default is 20</param>
         public InputWindow(string content = "Default Value",
                             string windowTitle = "TwitchPointFarmer",
                             string defaultValue = "",
