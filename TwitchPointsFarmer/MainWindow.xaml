@@ -17,8 +17,8 @@
         </Grid.RowDefinitions>
         <Grid Grid.RowSpan="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="3*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <GroupBox Header="Channels" Margin="5">
                 <ScrollViewer Grid.Row="1">
@@ -39,8 +39,10 @@
                 <ScrollViewer Grid.Row="1">
                     <StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
-                            <Button x:Name="AddAccountButton" Content="Add Account" Margin="2"/>
-                            <Button x:Name="RemAccountButton" Content="Rem Account" Margin="2"/>
+                            <Button x:Name="AddAccountButton" Content="Add Account" Margin="2"
+                                    Click="AddAccountButton_Click"/>
+                            <Button x:Name="RemAccountButton" Content="Rem Account" Margin="2"
+                                    Click="RemAccountButton_Click"/>
                         </StackPanel>
                         <ListBox x:Name="AccountsListBox">
 
