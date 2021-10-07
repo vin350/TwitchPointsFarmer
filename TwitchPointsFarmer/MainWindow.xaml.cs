@@ -165,7 +165,7 @@ namespace TwitchPointsFarmer
 
             void Box_Closing(object sender, System.ComponentModel.CancelEventArgs e)
             {
-                //validation
+
             }
 
             private void input_MouseDown(object sender, MouseEventArgs e)
