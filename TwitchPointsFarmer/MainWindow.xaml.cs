@@ -27,12 +27,22 @@ namespace TwitchPointsFarmer
         {
             InitializeComponent();
 
+            //when close, kill app
+            this.Closing += WindowCloseEvent;
+
             //depois mudar isso pra pegar direto dos arquivos JSON, assim a lista começa vazia!!!
             MyUsers = new();
             MyChannels = new();
         }
 
+
+
         #region Events
+
+        private void WindowCloseEvent(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
 
         private void AddChannelButton_Click(object sender, RoutedEventArgs e)
         {
