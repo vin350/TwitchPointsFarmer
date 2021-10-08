@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TwitchPointsFarmer.Components"
         mc:Ignorable="d"
-        Title="InputWindow" Height="180" Width="250">
+        Title="InputWindow" MinHeight="180" MinWidth="250" Height="180" Width="250">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
