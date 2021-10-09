@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TwitchPointsFarmer"
+        xmlns:emoji="clr-namespace:Emoji.Wpf;assembly=Emoji.Wpf"
         mc:Ignorable="d"
         Title="TwitchPointsFarmer" MinHeight="300" MinWidth="750" Height="450" Width="800">
     <Grid>
@@ -15,6 +16,8 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
+        
+        <!--#region Left Menu Bar-->
         <Grid Grid.RowSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -53,31 +56,68 @@
                 </ScrollViewer>
             </GroupBox>
         </Grid>
+        <!--#endregion-->
 
         <!--#region msg-->
-        <StackPanel Grid.Column="1" Orientation="Horizontal"
-                    HorizontalAlignment="Left" Margin="10,0">
-            <TextBox Text="Mensagem aqui!" HorizontalAlignment="Center"
-                     VerticalAlignment="Center" Width="auto" BorderThickness="2"
-                     Padding="10,0,10,0"
-                     />
-            <Button Content="send global msg" Grid.Column="1"
-                    HorizontalAlignment="Center" VerticalAlignment="Center"
-                    Padding="3" Margin="3"/>
-        </StackPanel>
-        <StackPanel Grid.Column="1" Orientation="Horizontal"
-                    HorizontalAlignment="Right" Margin="10,0">
-            <ComboBox VerticalAlignment="Center" Margin="5" Text="Canal" Width="auto">
+        <Button Grid.Column="1" Margin="7" Padding="12,3" FontSize="20"
+                HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Send a Chat Message" FontSize="20"/>
+                    <Image emoji:Image.Source="✉️" Height="30"/>
+                </StackPanel>
+            </Button.Content>
+        </Button>
 
-            </ComboBox>
-            <TextBox Text="Mensagem aqui!" HorizontalAlignment="Center"
-                     VerticalAlignment="Center" Width="auto" BorderThickness="2"
-                     Padding="10,0,10,0"
-                     />
-            <Button Content="Send message" Grid.Column="1"
-                    HorizontalAlignment="Center" VerticalAlignment="Center"
-                    Padding="3" Margin="3"/>
-        </StackPanel>
+        <!--#endregion-->
+        
+        <!--#region MainMenu-->
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="3*" />
+            </Grid.RowDefinitions>
+            <Border  Grid.Row="0" BorderBrush="Gray"
+                     BorderThickness="2" CornerRadius="3"
+                     HorizontalAlignment="Center" VerticalAlignment="Stretch"
+                        Margin="20">
+                <StackPanel Orientation="Horizontal">
+                    <Button Margin="10,5"
+                        Padding="20,3">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Start" FontSize="20"/>
+                                <Image emoji:Image.Source="✔️"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    <Button Margin="10,5"
+                        Padding="20,3">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Stop" FontSize="20"/>
+                                <Image emoji:Image.Source="❌"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+            </Border>
+            
+            <!--#region console-->
+            <GroupBox Header="Console" Grid.Row="1">
+                <Grid >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <TextBox Margin="3" IsReadOnly="true"/>
+                    <TextBox Grid.Row="1" Margin="3"/>
+                </Grid>
+            </GroupBox>
+            
+            <!--#endregion-->
+        </Grid>
         <!--#endregion-->
     </Grid>
 </Window>
+    
