@@ -82,7 +82,7 @@
                      HorizontalAlignment="Center" VerticalAlignment="Stretch"
                         Margin="20">
                 <StackPanel Orientation="Horizontal">
-                    <Button Margin="10,5"
+                    <Button x:Name="StartButton" Margin="10,5" Click="StartButton_Click"
                         Padding="20,3">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
@@ -91,7 +91,7 @@
                             </StackPanel>
                         </Button.Content>
                     </Button>
-                    <Button Margin="10,5"
+                    <Button x:Name="StopButton" Margin="10,5" Click="StopButton_Click"
                         Padding="20,3">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
@@ -110,8 +110,8 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="auto" />
                     </Grid.RowDefinitions>
-                    <TextBox Margin="3" IsReadOnly="true"/>
-                    <TextBox Grid.Row="1" Margin="3"/>
+                    <TextBox Name="ConsoleBox" Margin="3" IsReadOnly="true"/>
+                    <TextBox x:Name="ConsoleInput" Grid.Row="1" Margin="3"/>
                 </Grid>
             </GroupBox>
             

@@ -12,18 +12,18 @@ namespace TwitchPointsFarmer
 {
     class Bot
     {
-        private TwitchClient client;
+        private readonly TwitchClient client;
         private string actChannel;
         private static string LastWhisper;
         public Bot(string userName, string token, string channel)
         {
-            ConnectionCredentials credentials = new ConnectionCredentials(userName, token);
+            ConnectionCredentials credentials = new(userName, token);
             var clientOptions = new ClientOptions
             {
                 MessagesAllowedInPeriod = 750,
                 ThrottlingPeriod = TimeSpan.FromSeconds(30)
             };
-            WebSocketClient customClient = new WebSocketClient(clientOptions);
+            WebSocketClient customClient = new(clientOptions);
             client = new TwitchClient(customClient);
             client.Initialize(credentials, channel);
 

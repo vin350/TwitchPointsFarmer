@@ -122,6 +122,18 @@ namespace TwitchPointsFarmer
             AccountsListBox.Items.Remove(AccountsListBox.SelectedItem);
         }
 
+        private void StartButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void StopButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         #endregion
+
+
     }
 }
