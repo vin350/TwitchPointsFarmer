@@ -74,12 +74,12 @@
         <!--#region MainMenu-->
         <Grid Grid.Row="1" Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="3*" />
             </Grid.RowDefinitions>
             <Border  Grid.Row="0" BorderBrush="Gray"
                      BorderThickness="2" CornerRadius="3"
-                     HorizontalAlignment="Center" VerticalAlignment="Stretch"
+                     HorizontalAlignment="Center" VerticalAlignment="Center"
                         Margin="20">
                 <StackPanel Orientation="Horizontal">
                     <Button x:Name="StartButton" Margin="10,5" Click="StartButton_Click"
@@ -87,7 +87,7 @@
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <Label Content="Start" FontSize="20"/>
-                                <Image emoji:Image.Source="✔️"/>
+                                <Image emoji:Image.Source="✔️" Height="30"/>
                             </StackPanel>
                         </Button.Content>
                     </Button>
@@ -96,7 +96,7 @@
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <Label Content="Stop" FontSize="20"/>
-                                <Image emoji:Image.Source="❌"/>
+                                <Image emoji:Image.Source="❌" Height="30" RowDefinition.Height="Auto"/>
                             </StackPanel>
                         </Button.Content>
                     </Button>
