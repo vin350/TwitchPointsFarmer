@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TwitchPointsFarmer.Models;
 using System.IO;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 
-namespace TwitchPointsFarmer
+namespace TwitchPointsFarmer.Utils
 {
     public static class SaveClass
     {
         public static string FolderPath { get; } = Environment.CurrentDirectory;
         public static string FilePath { get; } = Environment.CurrentDirectory + @"\config.json";
+        public static JObject DefaultJson { get; } = new(
+                    new JProperty("users", new JArray()),
+                    new JProperty("channels", new JArray()));
 
         public static bool DoesFileExists()
         {
@@ -44,10 +44,7 @@ namespace TwitchPointsFarmer
         {
             if (DoesFileExists())
             {
-                JObject defaultJson = new(
-                    new JProperty("users", new JArray()),
-                    new JProperty("channels", new JArray()));
-                File.WriteAllText(FilePath, defaultJson.ToString());
+                File.WriteAllText(FilePath, DefaultJson.ToString());
             }
         }
 
@@ -57,7 +54,7 @@ namespace TwitchPointsFarmer
             {
                 //nao existe
                 Directory.CreateDirectory(FolderPath);
-                File.Create(FilePath);
+                File.WriteAllText(FilePath, null);
                 WriteDefaultFile();
             }
             else
@@ -75,18 +72,21 @@ namespace TwitchPointsFarmer
             EnsureExists();
             if(users!=null && channels != null)
             {
-                
+                var x = new SaveContainer()
+                {
+                    MyChannels = channels,
+                    MyUsers = users
+                };
+                File.WriteAllText(FilePath, JsonConvert.SerializeObject(x));
                 return true;
             }
             return false;
         }
-        public static (List<User>,List<string>) ReadFromFile()
+        public static SaveContainer ReadFromFile()
         {
             EnsureExists();
-            JObject json = JObject.Parse(FilePath);
-            var users = json["users"].ToObject<List<User>>();
-            var channels = json["channels"].ToObject<List<string>>();
-            return (users, channels);
+            SaveContainer s = JsonConvert.DeserializeObject<SaveContainer>(File.ReadAllText(FilePath));
+            return s;
         }
     }
 }

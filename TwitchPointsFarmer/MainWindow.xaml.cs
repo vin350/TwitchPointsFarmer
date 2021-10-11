@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows;
 using TwitchPointsFarmer.Components;
 using TwitchPointsFarmer.Models;
+using TwitchPointsFarmer.Utils;
 
 namespace TwitchPointsFarmer
 {
@@ -101,6 +102,7 @@ namespace TwitchPointsFarmer
 
             //Add on the UI
             AccountsListBox.Items.Add(user.Username);
+            MyUsers.Add(user);
         }
 
         private void RemAccountButton_Click(object sender, RoutedEventArgs e)
