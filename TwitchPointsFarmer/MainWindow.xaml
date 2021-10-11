@@ -96,7 +96,7 @@
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <Label Content="Stop" FontSize="20"/>
-                                <Image emoji:Image.Source="❌" Height="30" RowDefinition.Height="Auto"/>
+                                <Image emoji:Image.Source="❌" Height="30"/>
                             </StackPanel>
                         </Button.Content>
                     </Button>
