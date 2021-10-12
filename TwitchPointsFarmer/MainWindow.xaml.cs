@@ -22,6 +22,11 @@ namespace TwitchPointsFarmer
         public List<string> MyChannels { get; set; }
 
         /// <summary>
+        /// The class that manages the console
+        /// </summary>
+        public Logger Logger { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/>
         /// </summary>
         public MainWindow()
@@ -34,6 +39,7 @@ namespace TwitchPointsFarmer
             //depois mudar isso pra pegar direto dos arquivos JSON, assim a lista começa vazia!!!
             MyUsers = new();
             MyChannels = new();
+            Logger = new Logger(this);
         }
 
 

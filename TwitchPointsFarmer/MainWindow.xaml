@@ -16,7 +16,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
-        
+
         <!--#region Left Menu Bar-->
         <Grid Grid.RowSpan="2">
             <Grid.RowDefinitions>
@@ -70,7 +70,7 @@
         </Button>
 
         <!--#endregion-->
-        
+
         <!--#region MainMenu-->
         <Grid Grid.Row="1" Grid.Column="1">
             <Grid.RowDefinitions>
@@ -102,7 +102,7 @@
                     </Button>
                 </StackPanel>
             </Border>
-            
+
             <!--#region console-->
             <GroupBox Header="Console" Grid.Row="1">
                 <Grid >
@@ -110,11 +110,11 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="auto" />
                     </Grid.RowDefinitions>
-                    <TextBox Name="ConsoleBox" Margin="3" IsReadOnly="true"/>
+                    <TextBox Name="ConsoleBox" AcceptsReturn="True" IsReadOnly="True" IsReadOnlyCaretVisible="True" Margin="3"/>
                     <TextBox x:Name="ConsoleInput" Grid.Row="1" Margin="3"/>
                 </Grid>
             </GroupBox>
-            
+
             <!--#endregion-->
         </Grid>
         <!--#endregion-->
