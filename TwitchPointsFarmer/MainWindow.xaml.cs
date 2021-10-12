@@ -20,11 +20,14 @@ namespace TwitchPointsFarmer
         /// A list with all current subscribed channels
         /// </summary>
         public List<string> MyChannels { get; set; }
-
         /// <summary>
         /// The class that manages the console
         /// </summary>
         public Logger Logger { get; set; }
+        /// <summary>
+        /// The manager for saving/loading information from the JSON file
+        /// </summary>
+        public SaveClass Save { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/>
@@ -33,11 +36,9 @@ namespace TwitchPointsFarmer
         {
             InitializeComponent();
 
-            //when close, kill app
-            this.Closing += WindowCloseEvent;
-
-            //depois mudar isso pra pegar direto dos arquivos JSON, assim a lista começa vazia!!!
-            MyUsers = new();
+            Closing += WindowCloseEvent;
+            Save = new();
+            Save.Load(MyUsers, MyChannels);
             MyChannels = new();
             Logger = new Logger(this);
         }

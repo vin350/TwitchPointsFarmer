@@ -7,15 +7,15 @@ using Newtonsoft.Json;
 
 namespace TwitchPointsFarmer.Utils
 {
-    public static class SaveClass
+    public class SaveClass
     {
-        public static string FolderPath { get; } = Environment.CurrentDirectory;
-        public static string FilePath { get; } = Environment.CurrentDirectory + @"\config.json";
-        public static JObject DefaultJson { get; } = new(
+        public string FolderPath { get; } = Environment.CurrentDirectory;
+        public string FilePath { get; } = Environment.CurrentDirectory + @"\config.json";
+        private JObject DefaultJson { get; } = new(
                     new JProperty("users", new JArray()),
                     new JProperty("channels", new JArray()));
 
-        public static bool DoesFileExists()
+        private bool DoesFileExists()
         {
             if (Directory.Exists(FolderPath))
             {
@@ -27,7 +27,7 @@ namespace TwitchPointsFarmer.Utils
             return false;
         }
 
-        public static bool IsFileEmpty()
+        private bool IsFileEmpty()
         {
             if (DoesFileExists())
             {
@@ -40,7 +40,7 @@ namespace TwitchPointsFarmer.Utils
             return false;
         }
 
-        public static void WriteDefaultFile()
+        private void WriteDefaultFile()
         {
             if (DoesFileExists())
             {
@@ -48,7 +48,7 @@ namespace TwitchPointsFarmer.Utils
             }
         }
 
-        public static void EnsureExists()
+        private void EnsureExists()
         {
             if (!DoesFileExists())
             {
@@ -67,12 +67,12 @@ namespace TwitchPointsFarmer.Utils
             }
         }
 
-        public static bool SaveToFile(List<User> users, List<string> channels)
+        private bool SaveToFile(List<User> users, List<string> channels)
         {
             EnsureExists();
             if(users!=null && channels != null)
             {
-                var x = new SaveContainer()
+                SaveContainer x = new()
                 {
                     MyChannels = channels,
                     MyUsers = users
@@ -82,11 +82,31 @@ namespace TwitchPointsFarmer.Utils
             }
             return false;
         }
-        public static SaveContainer ReadFromFile()
+        private SaveContainer ReadFromFile()
         {
             EnsureExists();
             SaveContainer s = JsonConvert.DeserializeObject<SaveContainer>(File.ReadAllText(FilePath));
             return s;
+        }
+        /// <summary>
+        /// Loads the file information to the app
+        /// </summary>
+        /// <param name="users">The list with all current accounts</param>
+        /// <param name="channels">The list with all subscribed channels</param>
+        public void Load(List<User> users, List<string> channels)
+        {
+            SaveContainer s = ReadFromFile();
+            users = s.MyUsers;
+            channels = s.MyChannels;
+        }
+        /// <summary>
+        /// Saves all the app information inside the JSON file
+        /// </summary>
+        /// <param name="users">The list with all current accounts</param>
+        /// <param name="channels">The list with all subscribed channels</param>
+        public void Save(List<User> users, List<string> channels)
+        {
+            SaveToFile(users, channels);
         }
     }
 }
