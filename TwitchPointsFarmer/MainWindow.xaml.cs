@@ -63,8 +63,8 @@ namespace TwitchPointsFarmer
             }
             if (!string.IsNullOrWhiteSpace(inputRead))
             {
-                ChannelsListBox.Items.Add(inputRead);
                 MyChannels.Add(inputRead);
+                UpdateUI();
             }
         }
 
@@ -73,8 +73,7 @@ namespace TwitchPointsFarmer
             //remove from the backend
             MyChannels.Remove(ChannelsListBox.SelectedItem as string);
 
-            //remove from the UI
-            ChannelsListBox.Items.Remove(ChannelsListBox.SelectedItem);
+            UpdateUI();
         }
 
         private void AddAccountButton_Click(object sender, RoutedEventArgs e)
@@ -105,11 +104,8 @@ namespace TwitchPointsFarmer
                 MessageBox.Show("This user is already on the list!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-
-
-            //Add on the UI
-            AccountsListBox.Items.Add(user.Username);
             MyUsers.Add(user);
+            UpdateUI();
         }
 
         private void RemAccountButton_Click(object sender, RoutedEventArgs e)
@@ -126,9 +122,7 @@ namespace TwitchPointsFarmer
 
             //LINQ
             MyUsers.RemoveAll(x => x.Username == username);
-
-            //remove from the UI
-            AccountsListBox.Items.Remove(AccountsListBox.SelectedItem);
+            UpdateUI();
         }
 
         private void StartButton_Click(object sender, RoutedEventArgs e)
@@ -143,6 +137,37 @@ namespace TwitchPointsFarmer
 
         #endregion
 
+        #region Methods
+        
+        public void UpdateUI()
+        {
+            /*
+             * É pra isso funcionar, mas eu não testei kk
+             */
 
+            //sync channels
+            var faltaCh = from x in MyChannels
+                          where !ChannelsListBox.Items.Contains(x)
+                          select x;
+            var temAMaisCh = from x in ChannelsListBox.Items.Cast<string>()
+                             where !MyChannels.Contains(x)
+                             select x;
+            faltaCh.ToList().ForEach(x => ChannelsListBox.Items.Add(x));
+            temAMaisCh.ToList().ForEach(x => MyChannels.Add(x));
+
+            //sync accounts
+            var faltaAcc = from x in MyUsers
+                           where !AccountsListBox.Items.Contains(x.Username)
+                           select x;
+            var temAMaisAcc = from x in AccountsListBox.Items.Cast<string>()
+                              where !MyUsers.Any(y => y.Username == x)
+                              select x;
+            faltaAcc.ToList().ForEach(x => AccountsListBox.Items.Add(x));
+            //nao da pra add sem saber o auth code, se tiver só no UI, é descartado
+            //temAMaisAcc.ToList().ForEach(x => MyUsers.Add(x));
+
+        }
+
+        #endregion
     }
 }
