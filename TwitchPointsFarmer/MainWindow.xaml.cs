@@ -40,8 +40,9 @@ namespace TwitchPointsFarmer
             Save = new();
             MyChannels = new();
             MyUsers = new();
-            Save.Load(MyUsers, MyChannels);
             Logger = new Logger(this);
+            Save.Load(MyUsers, MyChannels);
+            UpdateUI();
         }
 
 
@@ -58,15 +59,15 @@ namespace TwitchPointsFarmer
             var p = new InputWindow(content: "Channel name:",
                                     windowTitle:"Add new");
             string inputRead = p.GetInput();
-            if (inputRead == InputWindow.CancelConst)
+            if (inputRead == InputWindow.CancelConst) return;
+            bool exists = MyChannels.Any(u => u == inputRead);
+            if (exists)
             {
+                MessageBox.Show("This channel is already on the list!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            if (!string.IsNullOrWhiteSpace(inputRead))
-            {
-                MyChannels.Add(inputRead);
-                UpdateUI();
-            }
+            MyChannels.Add(inputRead);
+            UpdateUI();
         }
 
         private void RemChannelButton_Click(object sender, RoutedEventArgs e)
