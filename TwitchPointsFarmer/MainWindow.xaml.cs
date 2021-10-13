@@ -15,11 +15,21 @@ namespace TwitchPointsFarmer
         /// <summary>
         /// A list with all the current Accounts
         /// </summary>
-        public List<User> MyUsers { get; set; }
+        public List<User> MyUsers
+        {
+            get{ return _MyUsers; }
+            set { _MyUsers = value; }
+        }
+        private List<User> _MyUsers;
         /// <summary>
         /// A list with all current subscribed channels
         /// </summary>
-        public List<string> MyChannels { get; set; }
+        public List<string> MyChannels
+        {
+            get { return _MyChannels; }
+            set { _MyChannels = value; }
+        }
+        private List<string> _MyChannels;
         /// <summary>
         /// The class that manages the console
         /// </summary>
@@ -41,7 +51,7 @@ namespace TwitchPointsFarmer
             MyChannels = new();
             MyUsers = new();
             Logger = new Logger(this);
-            Save.Load(MyUsers, MyChannels);
+            Save.Load(out _MyUsers, out _MyChannels);
             UpdateUI();
         }
 
@@ -169,7 +179,7 @@ namespace TwitchPointsFarmer
             //save to file, just to be shure everything is nicely saved :)
             Save.Save(MyUsers, MyChannels);
         }
-
+        
         #endregion
     }
 }

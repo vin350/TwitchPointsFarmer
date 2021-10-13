@@ -94,7 +94,7 @@ namespace TwitchPointsFarmer.Utils
         /// <param name="users">The list with all current accounts</param>
         /// <param name="channels">The list with all subscribed channels</param>
 #pragma warning disable IDE0059,IDE0060
-        public void Load(List<User> users, List<string> channels)
+        public void Load(out List<User> users, out List<string> channels)
         {
             SaveContainer s = ReadFromFile();
             //it says that is an message warning, but it actually uses it!!
