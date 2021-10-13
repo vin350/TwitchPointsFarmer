@@ -32,7 +32,7 @@ namespace TwitchPointsFarmer.Utils
         {
             DateTime date = DateTime.Now;
             message = $"[{date.Day}/{date.Month} {date.Hour}:{date.Minute}:{date.Second} - LOG] {message}";
-            main.ConsoleBox.Text += "\n" + message;
+            main.ConsoleBox.Text += message + "\n";
         }
         /// <summary>
         /// Outputs a warning on the console
@@ -42,7 +42,7 @@ namespace TwitchPointsFarmer.Utils
         {
             DateTime date = DateTime.Now;
             message = $"[{date.Day}/{date.Month} {date.Hour}:{date.Minute}:{date.Second} - WARN] {message}";
-            main.ConsoleBox.Text += "\n" + message;
+            main.ConsoleBox.Text += message + "\n";
         }
         /// <summary>
         /// Outputs an error message on the console
@@ -52,7 +52,7 @@ namespace TwitchPointsFarmer.Utils
         {
             DateTime date = DateTime.Now;
             message = $"[{date.Day}/{date.Month} {date.Hour}:{date.Minute}:{date.Second} - ERROR] {message}";
-            main.ConsoleBox.Text += "\n" + message;
+            main.ConsoleBox.Text += message + "\n";
         }
     }
 }

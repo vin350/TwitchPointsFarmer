@@ -53,6 +53,7 @@ namespace TwitchPointsFarmer
             Logger = new Logger(this);
             Save.Load(out _MyUsers, out _MyChannels);
             UpdateUI();
+            Logger.Log("System Loaded");
         }
 
 
