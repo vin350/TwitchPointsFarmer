@@ -38,8 +38,9 @@ namespace TwitchPointsFarmer
 
             Closing += WindowCloseEvent;
             Save = new();
-            Save.Load(MyUsers, MyChannels);
             MyChannels = new();
+            MyUsers = new();
+            Save.Load(MyUsers, MyChannels);
             Logger = new Logger(this);
         }
 
@@ -70,6 +71,12 @@ namespace TwitchPointsFarmer
 
         private void RemChannelButton_Click(object sender, RoutedEventArgs e)
         {
+            //if it hasnt any entries, ignore click
+            if (MyChannels == null || MyChannels.Count == 0 || ChannelsListBox.SelectedItem == null || ChannelsListBox.SelectedIndex == -1)
+            {
+                return;
+            }
+
             //remove from the backend
             MyChannels.Remove(ChannelsListBox.SelectedItem as string);
 
@@ -116,6 +123,12 @@ namespace TwitchPointsFarmer
              * pra conseguir deletar todos os q batem com o nome 
              */
              
+            //if it hasnt any entries, ignore click
+            if(MyUsers==null || MyUsers.Count == 0 || AccountsListBox.SelectedItem==null || AccountsListBox.SelectedIndex==-1)
+            {
+                return;
+            }
+
             //get username
             int index = AccountsListBox.SelectedIndex;
             var username = AccountsListBox.Items[index] as string;
@@ -146,26 +159,11 @@ namespace TwitchPointsFarmer
              */
 
             //sync channels
-            var faltaCh = from x in MyChannels
-                          where !ChannelsListBox.Items.Contains(x)
-                          select x;
-            var temAMaisCh = from x in ChannelsListBox.Items.Cast<string>()
-                             where !MyChannels.Contains(x)
-                             select x;
-            faltaCh.ToList().ForEach(x => ChannelsListBox.Items.Add(x));
-            temAMaisCh.ToList().ForEach(x => MyChannels.Add(x));
+            ChannelsListBox.Items.Clear();
+            MyChannels.ForEach(c => ChannelsListBox.Items.Add(c));
 
-            //sync accounts
-            var faltaAcc = from x in MyUsers
-                           where !AccountsListBox.Items.Contains(x.Username)
-                           select x;
-            var temAMaisAcc = from x in AccountsListBox.Items.Cast<string>()
-                              where !MyUsers.Any(y => y.Username == x)
-                              select x;
-            faltaAcc.ToList().ForEach(x => AccountsListBox.Items.Add(x));
-            //nao da pra add sem saber o auth code, se tiver só no UI, é descartado
-            //temAMaisAcc.ToList().ForEach(x => MyUsers.Add(x));
-
+            AccountsListBox.Items.Clear();
+            MyUsers.ForEach(u => AccountsListBox.Items.Add(u.Username));
         }
 
         #endregion
