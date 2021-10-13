@@ -152,18 +152,21 @@ namespace TwitchPointsFarmer
 
         #region Methods
         
+        /// <summary>
+        /// Updates the UI to match the current lists
+        /// </summary>
         public void UpdateUI()
         {
-            /*
-             * É pra isso funcionar, mas eu não testei kk
-             */
-
             //sync channels
             ChannelsListBox.Items.Clear();
             MyChannels.ForEach(c => ChannelsListBox.Items.Add(c));
 
+            //sync users
             AccountsListBox.Items.Clear();
             MyUsers.ForEach(u => AccountsListBox.Items.Add(u.Username));
+
+            //save to file, just to be shure everything is nicely saved :)
+            Save.Save(MyUsers, MyChannels);
         }
 
         #endregion
