@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using TwitchPointsFarmer.Components;
@@ -181,6 +182,10 @@ namespace TwitchPointsFarmer
             Save.Save(MyUsers, MyChannels);
         }
         
+        public void Log(string message) => Logger.Log(message);
+        public void Warn(string message) => Logger.Warn(message);
+        public void Error(string message) => Logger.Error(message);
+
         #endregion
     }
 }

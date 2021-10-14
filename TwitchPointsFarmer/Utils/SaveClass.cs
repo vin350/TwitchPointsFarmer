@@ -93,14 +93,11 @@ namespace TwitchPointsFarmer.Utils
         /// </summary>
         /// <param name="users">The list with all current accounts</param>
         /// <param name="channels">The list with all subscribed channels</param>
-#pragma warning disable IDE0059,IDE0060
         public void Load(out List<User> users, out List<string> channels)
         {
             SaveContainer s = ReadFromFile();
-            //it says that is an message warning, but it actually uses it!!
             users = s.MyUsers;
             channels = s.MyChannels;
-#pragma warning restore IDE0059, IDE0060
         }
         /// <summary>
         /// Saves all the app information inside the JSON file
