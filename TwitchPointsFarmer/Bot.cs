@@ -7,7 +7,9 @@ using TwitchLib.Client.Models;
 using TwitchLib.Communication.Clients;
 using TwitchLib.Communication.Events;
 using TwitchLib.Communication.Models;
-
+using TwitchPointsFarmer.Components;
+using TwitchPointsFarmer.Models;
+using TwitchPointsFarmer.Utils;
 namespace TwitchPointsFarmer
 {
     class Bot
@@ -15,8 +17,11 @@ namespace TwitchPointsFarmer
         private readonly TwitchClient client;
         private string actChannel;
         private static string LastWhisper;
-        public Bot(string userName, string token, string channel)
+        public Logger Logger { get; set; }
+
+        public Bot(string userName, string token, string channel, Logger logger)
         {
+            this.Logger = logger;
             ConnectionCredentials credentials = new(userName, token);
             var clientOptions = new ClientOptions
             {
@@ -27,7 +32,7 @@ namespace TwitchPointsFarmer
             client = new TwitchClient(customClient);
             client.Initialize(credentials, channel);
 
-            //client.OnLog += Client_OnLog;
+            client.OnLog += Client_OnLog;
 
             client.OnJoinedChannel += Client_OnJoinedChannel;
             client.OnWhisperReceived += Client_OnWhisperReceived;
@@ -39,20 +44,20 @@ namespace TwitchPointsFarmer
 
         private void Client_OnLog(object sender, OnLogArgs e)
         {
-            //LogInfo($"{e.DateTime.ToString()}: {e.BotUsername} - {e.Data}");
+            Logger.Log($"{e.BotUsername} - {e.Data}");
         }
 
         private void Client_OnIncorrectLogin(object sender, OnIncorrectLoginArgs e)
         {
             actChannel = "";
             //Program.BotManager.Remove(this);
-            //LogError($"Erro ao iniciar a conta: {e.Exception.Username}");
+            Logger.Error($"Erro ao iniciar a conta: {e.Exception.Username}");
         }
 
 
         private void Client_OnConnected(object sender, OnConnectedArgs e)
         {
-            //LogSuccess(e.BotUsername + $" connected to {e.AutoJoinChannel}");
+            Logger.Log(e.BotUsername + $" connected to {e.AutoJoinChannel}");
         }
 
         private void Client_OnJoinedChannel(object sender, OnJoinedChannelArgs e)
@@ -66,7 +71,7 @@ namespace TwitchPointsFarmer
             {
                 if (LastWhisper != e.WhisperMessage.Message)
                 {
-                    //LogInfo(e.WhisperMessage.Message);
+                    Logger.Log(e.WhisperMessage.Message);
                     LastWhisper = e.WhisperMessage.Message;
                 }
             }
@@ -76,13 +81,13 @@ namespace TwitchPointsFarmer
         public void SendMessage(string message)
         {
             client.SendMessage(actChannel, message);
-            //LogInfo("Channel: " + actChannel + ", Send Message: " + message);
+            Logger.Log("Channel: " + actChannel + ", Send Message: " + message);
         }
 
         public void SendMessageTo(string Channel, string message)
         {
             client.SendMessage(Channel, message);
-            //LogInfo("Channel: " + Channel + ", Send Message: " + message);
+            Logger.Log("Channel: " + Channel + ", Send Message: " + message);
         }
 
         public string GetActChannel()

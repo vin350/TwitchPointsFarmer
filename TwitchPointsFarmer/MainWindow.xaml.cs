@@ -152,7 +152,7 @@ namespace TwitchPointsFarmer
 
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Bot bot = new Bot("", "", "", Logger);
         }
 
         private void StopButton_Click(object sender, RoutedEventArgs e)
