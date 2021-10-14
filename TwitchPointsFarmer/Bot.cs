@@ -38,13 +38,25 @@ namespace TwitchPointsFarmer
             client.OnWhisperReceived += Client_OnWhisperReceived;
             client.OnConnected += Client_OnConnected;
             client.OnIncorrectLogin += Client_OnIncorrectLogin;
+            client.OnConnectionError += Client_OnConnectionError;
+            client.OnFailureToReceiveJoinConfirmation += Client_OnFailureToReceiveJoinConfirmation;
 
             client.Connect();
         }
 
+
         private void Client_OnLog(object sender, OnLogArgs e)
         {
             Logger.Log($"{e.BotUsername} - {e.Data}");
+        }
+        private void Client_OnFailureToReceiveJoinConfirmation(object sender, OnFailureToReceiveJoinConfirmationArgs e)
+        {
+            Logger.Error($"Erro ao iniciar a conta em: {e.Exception.Channel}");
+        }
+
+        private void Client_OnConnectionError(object sender, OnConnectionErrorArgs e)
+        {
+            Logger.Error($"Erro ao iniciar a conta: {e.BotUsername}");
         }
 
         private void Client_OnIncorrectLogin(object sender, OnIncorrectLoginArgs e)
