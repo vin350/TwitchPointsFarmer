@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using TwitchPointsFarmer.Components;
 using TwitchPointsFarmer.Models;
@@ -151,16 +152,20 @@ namespace TwitchPointsFarmer
             UpdateUI();
         }
 
-        private void StartButton_Click(object sender, RoutedEventArgs e)
+        private async void StartButton_Click(object sender, RoutedEventArgs e)
         {
-            foreach (var MyUser in MyUsers)
+            await Task.Run(() =>
             {
-                foreach (var MyChannel in MyChannels)
+                Logger.Log("Starting...");
+                foreach (var MyUser in MyUsers)
                 {
-                    Logger.Log("trying to connect " + MyUser.Username + " into " + MyChannel);
-                    Bot bot = new Bot(MyUser.Username, MyUser.AuthCode, MyChannel, Logger);
+                    foreach (var MyChannel in MyChannels)
+                    {
+                        Logger.Log("trying to connect " + MyUser.Username + " into " + MyChannel);
+                        Bot bot = new Bot(MyUser.Username, MyUser.AuthCode, MyChannel, Logger);
+                    }
                 }
-            }
+            });
         }
 
         private void StopButton_Click(object sender, RoutedEventArgs e)
