@@ -36,6 +36,7 @@ namespace TwitchPointsFarmer
 
             client.OnJoinedChannel += Client_OnJoinedChannel;
             client.OnWhisperReceived += Client_OnWhisperReceived;
+            client.OnMessageReceived += Client_OnMessageReceived;
             client.OnConnected += Client_OnConnected;
             client.OnIncorrectLogin += Client_OnIncorrectLogin;
             client.OnConnectionError += Client_OnConnectionError;
@@ -44,6 +45,13 @@ namespace TwitchPointsFarmer
             client.Connect();
         }
 
+        private void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)
+        {
+            if (e.ChatMessage.Message.Contains($"{e.ChatMessage.BotUsername}"))
+            {
+                Logger.Log(e.ChatMessage.Username + ": " + e.ChatMessage.Message);
+            }
+        }
 
         private void Client_OnLog(object sender, OnLogArgs e)
         {
@@ -80,13 +88,10 @@ namespace TwitchPointsFarmer
 
         private void Client_OnWhisperReceived(object sender, OnWhisperReceivedArgs e)
         {
-            if (e.WhisperMessage.Username.ToLower() == "StreamElements".ToLower())
+            if (LastWhisper != e.WhisperMessage.Message)
             {
-                if (LastWhisper != e.WhisperMessage.Message)
-                {
-                    Logger.Log(e.WhisperMessage.Message);
-                    LastWhisper = e.WhisperMessage.Message;
-                }
+                Logger.Log(e.WhisperMessage.Username + ": " + e.WhisperMessage.Message);
+                LastWhisper = e.WhisperMessage.Message;
             }
         }
 
