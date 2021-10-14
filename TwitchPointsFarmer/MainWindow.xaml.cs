@@ -152,7 +152,14 @@ namespace TwitchPointsFarmer
 
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
-            Bot bot = new Bot("", "", "", Logger);
+            foreach (var MyUser in MyUsers)
+            {
+                foreach (var MyChannel in MyChannels)
+                {
+                    Logger.Log("trying to connect " + MyUser.Username + " into " + MyChannel);
+                    Bot bot = new Bot(MyUser.Username, MyUser.AuthCode, MyChannel, Logger);
+                }
+            }
         }
 
         private void StopButton_Click(object sender, RoutedEventArgs e)

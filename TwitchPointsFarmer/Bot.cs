@@ -32,7 +32,7 @@ namespace TwitchPointsFarmer
             client = new TwitchClient(customClient);
             client.Initialize(credentials, channel);
 
-            client.OnLog += Client_OnLog;
+            //client.OnLog += Client_OnLog;
 
             client.OnJoinedChannel += Client_OnJoinedChannel;
             client.OnWhisperReceived += Client_OnWhisperReceived;
@@ -57,11 +57,12 @@ namespace TwitchPointsFarmer
 
         private void Client_OnConnected(object sender, OnConnectedArgs e)
         {
-            Logger.Log(e.BotUsername + $" connected to {e.AutoJoinChannel}");
+            //Logger.Log(e.BotUsername + $" connected to {e.AutoJoinChannel}");
         }
 
         private void Client_OnJoinedChannel(object sender, OnJoinedChannelArgs e)
         {
+            Logger.Log(e.BotUsername + $" connected to {e.Channel}");
             actChannel = e.Channel;
         }
 
