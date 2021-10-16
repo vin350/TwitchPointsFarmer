@@ -40,7 +40,12 @@ namespace TwitchPointsFarmer
         /// The manager for saving/loading information from the JSON file
         /// </summary>
         public SaveClass Save { get; set; }
-
+        public List<Bot> BotManager
+        {
+            get { return _BotManager; }
+            set { _BotManager = value; }
+        }
+        private List<Bot> _BotManager;
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/>
         /// </summary>
@@ -48,6 +53,7 @@ namespace TwitchPointsFarmer
         {
             InitializeComponent();
 
+            BotManager = new();
             Closing += WindowCloseEvent;
             Save = new();
             MyChannels = new();
@@ -162,7 +168,7 @@ namespace TwitchPointsFarmer
                     foreach (var MyChannel in MyChannels)
                     {
                         Logger.Log("trying to connect " + MyUser.Username + " into " + MyChannel);
-                        Bot bot = new Bot(MyUser.Username, MyUser.AuthCode, MyChannel, Logger);
+                        Bot bot = new Bot(MyUser.Username, MyUser.AuthCode, MyChannel, this);
                     }
                 }
             });
@@ -170,7 +176,15 @@ namespace TwitchPointsFarmer
 
         private void StopButton_Click(object sender, RoutedEventArgs e)
         {
-
+            List<Bot> temp = new();
+            BotManager.ForEach(x =>
+            {
+                x.Disconnect();
+                temp.Add(x);
+            });
+            temp.ForEach(x => BotManager.Remove(x));
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         #endregion

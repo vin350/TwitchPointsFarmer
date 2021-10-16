@@ -12,16 +12,19 @@ using TwitchPointsFarmer.Models;
 using TwitchPointsFarmer.Utils;
 namespace TwitchPointsFarmer
 {
-    class Bot
+    public class Bot
     {
         private readonly TwitchClient client;
         private string actChannel;
         private static string LastWhisper;
         public Logger Logger { get; set; }
+        public MainWindow main { get; set; }
+        public string actUsername { get; set; }
 
-        public Bot(string userName, string token, string channel, Logger logger)
+        public Bot(string userName, string token, string channel, MainWindow main)
         {
-            this.Logger = logger;
+            this.Logger = main.Logger;
+            this.main = main;
             ConnectionCredentials credentials = new(userName, token);
             var clientOptions = new ClientOptions
             {
@@ -41,8 +44,19 @@ namespace TwitchPointsFarmer
             client.OnIncorrectLogin += Client_OnIncorrectLogin;
             client.OnConnectionError += Client_OnConnectionError;
             client.OnFailureToReceiveJoinConfirmation += Client_OnFailureToReceiveJoinConfirmation;
+            client.OnDisconnected += Client_OnDisconnected;
 
             client.Connect();
+        }
+
+        public void Disconnect()
+        {
+            client.Disconnect();
+        }
+
+        private void Client_OnDisconnected(object sender, OnDisconnectedEventArgs e)
+        {
+            Logger.Log($"{actUsername} disconnected from {actChannel}");
         }
 
         private void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)
@@ -70,7 +84,6 @@ namespace TwitchPointsFarmer
         private void Client_OnIncorrectLogin(object sender, OnIncorrectLoginArgs e)
         {
             actChannel = "";
-            //Program.BotManager.Remove(this);
             Logger.Error($"Erro ao iniciar a conta: {e.Exception.Username}");
         }
 
@@ -84,6 +97,8 @@ namespace TwitchPointsFarmer
         {
             Logger.Log(e.BotUsername + $" connected to {e.Channel}");
             actChannel = e.Channel;
+            actUsername = e.BotUsername;
+            main.BotManager.Add(this);
         }
 
         private void Client_OnWhisperReceived(object sender, OnWhisperReceivedArgs e)
