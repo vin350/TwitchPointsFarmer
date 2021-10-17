@@ -110,7 +110,7 @@
                     <TextBox x:Name="ConsoleInput" Grid.Row="1" Margin="3" TextChanged="ConsoleInput_TextChanged"/>
                     <Button x:Name="SendCommandButton" Content="Send" Padding="15,0" 
                             Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Center" 
-                            Margin="3" Click="SendCommandButton_Click"/>
+                            Margin="3" Click="SendCommandButton_Click" IsEnabled="False"/>
                 </Grid>
             </GroupBox>
 

@@ -51,6 +51,16 @@ namespace TwitchPointsFarmer
         public List<Bot> BotManager { get; set; }
 
         /// <summary>
+        /// The class to manage command parsing in the console
+        /// </summary>
+        public CommandParsing CommandParsing { get; set; }
+
+        /// <summary>
+        /// Determines if the Debug Mode is currently active
+        /// </summary>
+        public bool IsDebugModeActive { get; set; } = false;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/>
         /// </summary>
         public MainWindow()
@@ -63,7 +73,7 @@ namespace TwitchPointsFarmer
             MyChannels = new();
             MyUsers = new();
             Logger = new Logger(this);
-            CommandParsing = new(null);
+            CommandParsing = new(GetCommands());
             Save.Load(out _MyUsers, out _MyChannels);
             UpdateUI();
             Logger.Log("System Loaded");
@@ -192,6 +202,34 @@ namespace TwitchPointsFarmer
             GC.WaitForPendingFinalizers();
         }
 
+        private void SendCommandButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(ConsoleInput.Text))
+            {
+                Warn("The command input is empty!");
+                return;
+            }
+            try{
+                CommandParsing.Parse(ConsoleInput.Text.Trim());
+            }catch(Exception ex)
+            {
+                Error(ex.Message);
+            }
+            ConsoleInput.Text = "";
+        }
+
+        private void ConsoleInput_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(ConsoleInput.Text))
+            {
+                SendCommandButton.IsEnabled = false;
+            }
+            else
+            {
+                SendCommandButton.IsEnabled = true;
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -218,9 +256,44 @@ namespace TwitchPointsFarmer
         public void Error(string message) => Logger.Error(message);
         public void Clear() => Logger.Clear();
 
+        public IEnumerable<Command> GetCommands()
+        {
+            IEnumerable<Command> commands = new List<Command>()
+            {
+                new()
+                {
+                    Action=new Action<object[]>(ToggleDebugMode),
+                    HasUserArgs=false,
+                    Label="debug",
+                    NumberOfParameters=0,
+                    SubCommands=null
+                }
+            };
+            return commands;
+        }
 
         #endregion
 
-        
+        #region Commands
+
+        /// <summary>
+        /// Toggles the current debug mode
+        /// </summary>
+        public void ToggleDebugMode(object[] args)
+        {
+            IsDebugModeActive = !IsDebugModeActive;
+            if (IsDebugModeActive)
+            {
+                Log("The debug mode is now active");
+            }
+            else
+            {
+                Log("The debug mode is now inactive");
+            }
+        }
+
+        #endregion
+
+
     }
 }
