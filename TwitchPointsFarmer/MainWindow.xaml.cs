@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using TwitchPointsFarmer.Components;
 using TwitchPointsFarmer.Models;
 using TwitchPointsFarmer.Utils;
@@ -23,6 +24,7 @@ namespace TwitchPointsFarmer
             set { _MyUsers = value; }
         }
         private List<User> _MyUsers;
+
         /// <summary>
         /// A list with all current subscribed channels
         /// </summary>
@@ -32,20 +34,22 @@ namespace TwitchPointsFarmer
             set { _MyChannels = value; }
         }
         private List<string> _MyChannels;
+
         /// <summary>
         /// The class that manages the console
         /// </summary>
         public Logger Logger { get; set; }
+
         /// <summary>
         /// The manager for saving/loading information from the JSON file
         /// </summary>
         public SaveClass Save { get; set; }
-        public List<Bot> BotManager
-        {
-            get { return _BotManager; }
-            set { _BotManager = value; }
-        }
-        private List<Bot> _BotManager;
+
+        /// <summary>
+        /// A list to manage the active bots
+        /// </summary>
+        public List<Bot> BotManager { get; set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/>
         /// </summary>
@@ -59,6 +63,7 @@ namespace TwitchPointsFarmer
             MyChannels = new();
             MyUsers = new();
             Logger = new Logger(this);
+            CommandParsing = new(null);
             Save.Load(out _MyUsers, out _MyChannels);
             UpdateUI();
             Logger.Log("System Loaded");
@@ -163,12 +168,12 @@ namespace TwitchPointsFarmer
             await Task.Run(() =>
             {
                 Logger.Log("Starting...");
-                foreach (var MyUser in MyUsers)
+                foreach (User MyUser in MyUsers)
                 {
-                    foreach (var MyChannel in MyChannels)
+                    foreach (string MyChannel in MyChannels)
                     {
                         Logger.Log("trying to connect " + MyUser.Username + " into " + MyChannel);
-                        Bot bot = new Bot(MyUser.Username, MyUser.AuthCode, MyChannel, this);
+                        Bot bot = new(MyUser.Username, MyUser.AuthCode, MyChannel, this);
                     }
                 }
             });
@@ -190,7 +195,7 @@ namespace TwitchPointsFarmer
         #endregion
 
         #region Methods
-        
+
         /// <summary>
         /// Updates the UI to match the current lists
         /// </summary>
@@ -211,7 +216,11 @@ namespace TwitchPointsFarmer
         public void Log(string message) => Logger.Log(message);
         public void Warn(string message) => Logger.Warn(message);
         public void Error(string message) => Logger.Error(message);
+        public void Clear() => Logger.Clear();
+
 
         #endregion
+
+        
     }
 }

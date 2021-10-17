@@ -17,16 +17,14 @@ namespace TwitchPointsFarmer
         private readonly TwitchClient client;
         private string actChannel;
         private static string LastWhisper;
-        public Logger Logger { get; set; }
-        public MainWindow main { get; set; }
-        public string actUsername { get; set; }
+        public MainWindow Main { get; set; }
+        public string ActUsername { get; set; }
 
         public Bot(string userName, string token, string channel, MainWindow main)
         {
-            this.Logger = main.Logger;
-            this.main = main;
+            Main = main;
             ConnectionCredentials credentials = new(userName, token);
-            var clientOptions = new ClientOptions
+            ClientOptions clientOptions = new()
             {
                 MessagesAllowedInPeriod = 750,
                 ThrottlingPeriod = TimeSpan.FromSeconds(30)
@@ -56,35 +54,35 @@ namespace TwitchPointsFarmer
 
         private void Client_OnDisconnected(object sender, OnDisconnectedEventArgs e)
         {
-            Logger.Log($"{actUsername} disconnected from {actChannel}");
+            Main.Log($"{ActUsername} disconnected from {actChannel}");
         }
 
         private void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)
         {
             if (e.ChatMessage.Message.Contains($"{e.ChatMessage.BotUsername}"))
             {
-                Logger.Log(e.ChatMessage.Username + ": " + e.ChatMessage.Message);
+                Main.Log(e.ChatMessage.Username + ": " + e.ChatMessage.Message);
             }
         }
 
         private void Client_OnLog(object sender, OnLogArgs e)
         {
-            Logger.Log($"{e.BotUsername} - {e.Data}");
+            Main.Log($"{e.BotUsername} - {e.Data}");
         }
         private void Client_OnFailureToReceiveJoinConfirmation(object sender, OnFailureToReceiveJoinConfirmationArgs e)
         {
-            Logger.Error($"Erro ao iniciar a conta em: {e.Exception.Channel}");
+            Main.Error($"Erro ao iniciar a conta em: {e.Exception.Channel}");
         }
 
         private void Client_OnConnectionError(object sender, OnConnectionErrorArgs e)
         {
-            Logger.Error($"Erro ao iniciar a conta: {e.BotUsername}");
+            Main.Error($"Erro ao iniciar a conta: {e.BotUsername}");
         }
 
         private void Client_OnIncorrectLogin(object sender, OnIncorrectLoginArgs e)
         {
             actChannel = "";
-            Logger.Error($"Erro ao iniciar a conta: {e.Exception.Username}");
+            Main.Error($"Erro ao iniciar a conta: {e.Exception.Username}");
         }
 
 
@@ -95,17 +93,17 @@ namespace TwitchPointsFarmer
 
         private void Client_OnJoinedChannel(object sender, OnJoinedChannelArgs e)
         {
-            Logger.Log(e.BotUsername + $" connected to {e.Channel}");
+            Main.Log(e.BotUsername + $" connected to {e.Channel}");
             actChannel = e.Channel;
-            actUsername = e.BotUsername;
-            main.BotManager.Add(this);
+            ActUsername = e.BotUsername;
+            Main.BotManager.Add(this);
         }
 
         private void Client_OnWhisperReceived(object sender, OnWhisperReceivedArgs e)
         {
             if (LastWhisper != e.WhisperMessage.Message)
             {
-                Logger.Log(e.WhisperMessage.Username + ": " + e.WhisperMessage.Message);
+                Main.Log(e.WhisperMessage.Username + ": " + e.WhisperMessage.Message);
                 LastWhisper = e.WhisperMessage.Message;
             }
         }
@@ -114,13 +112,13 @@ namespace TwitchPointsFarmer
         public void SendMessage(string message)
         {
             client.SendMessage(actChannel, message);
-            Logger.Log("Channel: " + actChannel + ", Send Message: " + message);
+            Main.Log("Channel: " + actChannel + ", Send Message: " + message);
         }
 
         public void SendMessageTo(string Channel, string message)
         {
             client.SendMessage(Channel, message);
-            Logger.Log("Channel: " + Channel + ", Send Message: " + message);
+            Main.Log("Channel: " + Channel + ", Send Message: " + message);
         }
 
         public string GetActChannel()
