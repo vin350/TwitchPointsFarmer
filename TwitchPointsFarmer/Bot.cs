@@ -15,7 +15,7 @@ namespace TwitchPointsFarmer
     public class Bot
     {
         private readonly TwitchClient client;
-        private string actChannel;
+        private string ActChannel;
         private static string LastWhisper;
         public MainWindow Main { get; set; }
         public string ActUsername { get; set; }
@@ -54,7 +54,7 @@ namespace TwitchPointsFarmer
 
         private void Client_OnDisconnected(object sender, OnDisconnectedEventArgs e)
         {
-            Main.Log($"{ActUsername} disconnected from {actChannel}");
+            Main.Log($"{ActUsername} disconnected from {ActChannel}");
         }
 
         private void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)
@@ -81,7 +81,7 @@ namespace TwitchPointsFarmer
 
         private void Client_OnIncorrectLogin(object sender, OnIncorrectLoginArgs e)
         {
-            actChannel = "";
+            ActChannel = "";
             Main.Error($"Erro ao iniciar a conta: {e.Exception.Username}");
         }
 
@@ -94,7 +94,7 @@ namespace TwitchPointsFarmer
         private void Client_OnJoinedChannel(object sender, OnJoinedChannelArgs e)
         {
             Main.Log(e.BotUsername + $" connected to {e.Channel}");
-            actChannel = e.Channel;
+            ActChannel = e.Channel;
             ActUsername = e.BotUsername;
             Main.BotManager.Add(this);
         }
@@ -111,8 +111,8 @@ namespace TwitchPointsFarmer
 
         public void SendMessage(string message)
         {
-            client.SendMessage(actChannel, message);
-            Main.Log("Channel: " + actChannel + ", Send Message: " + message);
+            client.SendMessage(ActChannel, message);
+            Main.Log("Channel: " + ActChannel + ", Send Message: " + message);
         }
 
         public void SendMessageTo(string Channel, string message)
@@ -123,7 +123,7 @@ namespace TwitchPointsFarmer
 
         public string GetActChannel()
         {
-            return actChannel;
+            return ActChannel;
         }
     }
 }
