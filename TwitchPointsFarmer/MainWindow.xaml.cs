@@ -251,27 +251,6 @@ namespace TwitchPointsFarmer
             Save.Save(MyUsers, MyChannels);
         }
 
-        public void SendMessageToAll(string message)
-        {
-            foreach (Bot x in BotManager)
-            {
-                x.SendMessage(message);
-            }
-        }
-
-        public void SendMessageTo(string Channel, string message)
-        {
-            foreach (Bot x in BotManager)
-            {
-                string Ch = x.GetActChannel();
-                if (Ch.ToLower() == Channel.ToLower())
-                {
-                    x.SendMessageTo(Ch, message);
-                }
-                
-            }
-        }
-
         public void Log(string message) => Logger.Log(message);
         public void Warn(string message) => Logger.Warn(message);
         public void Error(string message) => Logger.Error(message);
