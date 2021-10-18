@@ -24,7 +24,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <GroupBox Header="Channels" Margin="5">
-                <ScrollViewer Grid.Row="1">
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                     <StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
                             <Button Click="AddChannelButton_Click" x:Name="AddChannelButton" Content="Add Channel" Margin="2"/>
@@ -39,7 +39,7 @@
                 </ScrollViewer>
             </GroupBox>
             <GroupBox Grid.Row="1" Header="Accounts: " Margin="5">
-                <ScrollViewer Grid.Row="1">
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                     <StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
                             <Button x:Name="AddAccountButton" Content="Add Account" Margin="2"
@@ -102,8 +102,15 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="auto" />
                     </Grid.RowDefinitions>
-                    <emoji:TextBox Name="ConsoleBox" AcceptsReturn="True" IsReadOnly="True" IsReadOnlyCaretVisible="True" TextWrapping="Wrap" Margin="3,3,3,3"/>
-                    <TextBox x:Name="ConsoleInput" Grid.Row="1" Margin="3"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <emoji:TextBox Name="ConsoleBox" AcceptsReturn="True" IsReadOnly="True" IsReadOnlyCaretVisible="True" TextWrapping="Wrap" Margin="3" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="ConsoleInput" Grid.Row="1" Margin="3" TextChanged="ConsoleInput_TextChanged"/>
+                    <Button x:Name="SendCommandButton" Content="Send" Padding="15,0" 
+                            Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Center" 
+                            Margin="3" Click="SendCommandButton_Click" IsEnabled="False"/>
                 </Grid>
             </GroupBox>
 

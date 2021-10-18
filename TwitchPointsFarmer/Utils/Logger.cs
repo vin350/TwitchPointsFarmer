@@ -64,6 +64,18 @@ namespace TwitchPointsFarmer.Utils
                 main.ConsoleBox.ScrollToEnd();
             }));
         }
+
+        /// <summary>
+        /// Clears the console window
+        /// </summary>
+        public void Clear()
+        {
+            main.ConsoleBox.Dispatcher.Invoke(new Action(() =>
+            {
+                main.ConsoleBox.Text = "";
+                main.ConsoleBox.ScrollToEnd();
+            }));
+        }
     }
 }
 
