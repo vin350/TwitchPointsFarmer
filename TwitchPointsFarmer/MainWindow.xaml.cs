@@ -267,6 +267,14 @@ namespace TwitchPointsFarmer
                     Label="debug",
                     NumberOfParameters=0,
                     SubCommands=null
+                },
+                new()
+                {
+                    Action=new Action<object[]>(ClearConsole),
+                    HasUserArgs=false,
+                    Label="clear",
+                    NumberOfParameters=0,
+                    SubCommands=null
                 }
             };
             return commands;
@@ -290,6 +298,11 @@ namespace TwitchPointsFarmer
             {
                 Log("The debug mode is now inactive");
             }
+        }
+
+        public void ClearConsole(object[] args)
+        {
+            ConsoleBox.Clear();
         }
 
         #endregion
