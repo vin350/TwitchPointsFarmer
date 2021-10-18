@@ -112,13 +112,13 @@ namespace TwitchPointsFarmer
         public void SendMessage(string message)
         {
             client.SendMessage(ActChannel, message);
-            Main.Log("Channel: " + ActChannel + ", Send Message: " + message);
+            Main.Log("Account: " + ActUsername + ", Channel: " + ActChannel + ", Send: " + message);
         }
 
         public void SendMessageTo(string Channel, string message)
         {
             client.SendMessage(Channel, message);
-            Main.Log("Channel: " + Channel + ", Send Message: " + message);
+            Main.Log("Account: " + ActUsername + ", Channel: " + Channel + ", Send: " + message);
         }
 
         public string GetActChannel()

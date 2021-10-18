@@ -37,8 +37,11 @@ namespace TwitchPointsFarmer.Utils
                 //has args
                 if (cmd.HasUserArgs)
                 {
-                    if (args.Length-1 > cmd.NumberOfParameters) throw new TooManyArgsException();
-                    if (args.Length - 1 < cmd.NumberOfParameters) throw new TooFewArgsException();
+                    if (cmd.NumberOfParameters != -1)
+                    {
+                        if (args.Length-1 > cmd.NumberOfParameters) throw new TooManyArgsException();
+                        if (args.Length - 1 < cmd.NumberOfParameters) throw new TooFewArgsException();
+                    }
                     //has the correct number of args
                     var temp = args.ToList();
                     temp.RemoveAt(0);

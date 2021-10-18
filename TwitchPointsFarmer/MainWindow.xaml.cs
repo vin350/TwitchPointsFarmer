@@ -275,6 +275,22 @@ namespace TwitchPointsFarmer
                     Label="clear",
                     NumberOfParameters=0,
                     SubCommands=null
+                },
+                new()
+                {
+                    Action=new Action<object[]>(SendMessageToAll),
+                    HasUserArgs=true,
+                    Label="msgall",
+                    NumberOfParameters=-1,
+                    SubCommands=null
+                },
+                new()
+                {
+                    Action=new Action<object[]>(SendMessageTo),
+                    HasUserArgs=true,
+                    Label="msgto",
+                    NumberOfParameters=-1,
+                    SubCommands=null
                 }
             };
             return commands;
@@ -303,6 +319,40 @@ namespace TwitchPointsFarmer
         public void ClearConsole(object[] args)
         {
             ConsoleBox.Clear();
+        }
+
+        public void SendMessageToAll(object[] args)
+        {
+            string message = "";
+            foreach (var arg in args)
+            {
+                message = message + " " + arg;
+            }
+            foreach (Bot index in BotManager)
+            {
+                index.SendMessage(message);
+            }
+        }
+
+        public void SendMessageTo(object[] args)
+        {
+            string message = "";
+            string Channel = "" + args[0] + "";
+            foreach (var arg in args)
+            {
+                if (arg != Channel)
+                {
+                    message = message + " " + arg;
+                }
+            }
+            foreach (Bot index in BotManager)
+            {
+                string Ch = index.GetActChannel();
+                if (Ch.ToLower() == Channel.ToLower())
+                {
+                    index.SendMessageTo(Ch, message);
+                }
+            }
         }
 
         #endregion
