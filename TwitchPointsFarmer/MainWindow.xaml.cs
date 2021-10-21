@@ -56,6 +56,11 @@ namespace TwitchPointsFarmer
         public CommandParsing CommandParsing { get; set; }
 
         /// <summary>
+        /// The class to manage app updates
+        /// </summary>
+        public AutoUpdater AutoUpdater { get; set; }
+
+        /// <summary>
         /// Determines if the Debug Mode is currently active
         /// </summary>
         public bool IsDebugModeActive { get; set; } = false;
@@ -68,13 +73,18 @@ namespace TwitchPointsFarmer
             InitializeComponent();
             AutoUpdater.CheckForUpdates();
 
+            //class instancing
             BotManager = new();
-            Closing += WindowCloseEvent;
             Save = new();
             MyChannels = new();
             MyUsers = new();
             Logger = new Logger(this);
             CommandParsing = new(GetCommands());
+            AutoUpdater = new(new(1, 1), this);
+
+            //events
+            Closing += WindowCloseEvent;
+
             Save.Load(out _MyUsers, out _MyChannels);
             UpdateUI();
             Logger.Log("System Loaded");
