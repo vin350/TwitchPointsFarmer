@@ -66,6 +66,7 @@ namespace TwitchPointsFarmer
         public MainWindow()
         {
             InitializeComponent();
+            AutoUpdater.CheckForUpdates();
 
             BotManager = new();
             Closing += WindowCloseEvent;
@@ -340,7 +341,7 @@ namespace TwitchPointsFarmer
             string Channel = "" + args[0] + "";
             foreach (var arg in args)
             {
-                if (arg != Channel)
+                if ((string)arg != Channel)
                 {
                     message = message + " " + arg;
                 }

@@ -1,5 +1,8 @@
 {
     "manifestVersion": 1,
-    "latestVersion": 1.0,
-    "setupLocation": ""
+    "latestVersion": {
+        "major": 1,
+        "minor": 0
+    },
+    "setupLocation": "https://github.com/vin350/TwitchPointsFarmer/raw/master/setup/Setup.exe"
 }
