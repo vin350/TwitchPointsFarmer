@@ -279,7 +279,13 @@ namespace TwitchPointsFarmer
                     Label="debug",
                     NumberOfParameters=0,
                     SubCommands=null,
-                    Description="Toggles the debug mode."
+                    Description="Toggles the debug mode.",
+                    Usage="debug",
+                    Aliases=new List<string>()
+                    {
+                        "d",
+                        "dbg"
+                    }
                 },
                 new()
                 {
@@ -288,25 +294,42 @@ namespace TwitchPointsFarmer
                     Label="clear",
                     NumberOfParameters=0,
                     SubCommands=null,
-                    Description="Clears the console."
+                    Description="Clears the console.",
+                    Usage="clear",
+                    Aliases=new List<string>()
+                    {
+                        "cls"
+                    }
                 },
                 new()
                 {
                     Action=new Action<object[]>(SendMessageToAll),
                     HasUserArgs=true,
-                    Label="msgall",
+                    Label="messageall",
                     NumberOfParameters=-1,
                     SubCommands=null,
-                    Description="Sends a message to all connected registered channels."
+                    Description="Sends a message to all connected registered channels.",
+                    Usage="messageall <message>",
+                    Aliases=new List<string>()
+                    {
+                        "msgall",
+                        "msg"
+                    }
                 },
                 new()
                 {
                     Action=new Action<object[]>(SendMessageTo),
                     HasUserArgs=true,
-                    Label="msgto",
+                    Label="messageto",
                     NumberOfParameters=-1,
                     SubCommands=null,
-                    Description="Send a message to a specific channel."
+                    Description="Send a message to a specific channel.",
+                    Usage="messageto <channel> <message>",
+                    Aliases=new List<string>()
+                    {
+                        "msgto",
+                        "msgchannel"
+                    }
                 },
                 new(){
                     Action=new Action<object[]>(ShowHelp),
@@ -314,7 +337,13 @@ namespace TwitchPointsFarmer
                     Label="help",
                     NumberOfParameters=0,
                     SubCommands=null,
-                    Description="Shows all commands available."
+                    Description="Shows all commands available.",
+                    Usage="help",
+                    Aliases=new List<string>()
+                    {
+                        "h",
+                        "?"
+                    }
                 }
             };
             return commands;
@@ -383,9 +412,17 @@ namespace TwitchPointsFarmer
             new Thread(() =>
             {
                 string message = "Available commands:\n";
+                {
+                    
+                }
                 foreach (Command command in GetCommands())
                 {
-                    message += $"{command.Label}= {command.Description}\n";
+                    string alias = "";
+                    foreach (var item in command.Aliases)
+                    {
+                        alias = alias + item + ", ";
+                    };
+                    message += $"{command.Label}= {command.Description}\n  Usage: {command.Usage}\n  Alias: {alias}\n";
                 }
                 Log(message);
             }).Start();

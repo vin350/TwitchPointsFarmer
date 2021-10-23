@@ -25,7 +25,7 @@ namespace TwitchPointsFarmer.Utils
             bool isfound = false;
             Command cmd = null;
             Commands.ForEach(c => {
-                if (c.Label == args[0])
+                if (c.Label == args[0] || c.Aliases.Contains(args[0]))
                 {
                     isfound = true;
                     cmd = c;
