@@ -302,6 +302,13 @@ namespace TwitchPointsFarmer
                     Label="msgto",
                     NumberOfParameters=-1,
                     SubCommands=null
+                },
+                new(){
+                    Action=new Action<object[]>(ShowHelp),
+                    HasUserArgs=false,
+                    Label="help",
+                    NumberOfParameters=0,
+                    SubCommands=null
                 }
             };
             return commands;
@@ -363,6 +370,16 @@ namespace TwitchPointsFarmer
                 {
                     index.SendMessageTo(Ch, message);
                 }
+            }
+        }
+        public void ShowHelp(object[] args)
+        {
+            Log("Available commands:");
+            foreach (Command command in GetCommands())
+            {
+                Log("\t" + command.Label);
+                Log("\t\t Nº of args: "+command.NumberOfParameters);
+                Log("\t\t Has user args: "+command.HasUserArgs);
             }
         }
 

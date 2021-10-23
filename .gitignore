@@ -351,3 +351,7 @@ MigrationBackup/
 .ionide/
 
 *.iss
+TwitchPointsFarmer/config.json
+.vscode/
+vscode/
+.vscode/launch.json
