@@ -15,14 +15,14 @@ To install the app, follow these instructions:
 
 Fist view of the app:
 
-<img src="https://i.imgur.com/V9LNAnz.png" width=80% height=80% />
+![Default View](https://i.imgur.com/V9LNAnz.png)
 
 1. First, add all the channel names that will be "viewed" on the top left menu.
 2. Now add your username and authentication token(can be acessed [here](https://twitchapps.com/tmi/)) on the bottom right menu.
-<img src="https://i.imgur.com/tHINvFQ.png" width=80% height=80% />
+![Default View](https://i.imgur.com/tHINvFQ.png)
 
 3. Click Start and leave it running. 
-<img src="https://i.imgur.com/vAdWPNn.png" width=80% height=80% />
+![Default View](https://i.imgur.com/vAdWPNn.png)
 
 4. Enjoy those effortless points!
 
