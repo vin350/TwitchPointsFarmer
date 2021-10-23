@@ -420,15 +420,12 @@ namespace TwitchPointsFarmer
             new Thread(() =>
             {
                 string message = "Available commands:\n";
-                {
-                    
-                }
                 foreach (Command command in GetCommands())
                 {
                     string alias = "";
                     foreach (var item in command.Aliases)
                     {
-                        alias = alias + item + ", ";
+                        alias += item + ", ";
                     };
                     message += $"{command.Label}= {command.Description}\n  Usage: {command.Usage}\n  Alias: {alias}\n";
                 }
