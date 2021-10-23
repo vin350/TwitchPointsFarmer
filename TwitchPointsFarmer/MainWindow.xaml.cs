@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -277,7 +278,8 @@ namespace TwitchPointsFarmer
                     HasUserArgs=false,
                     Label="debug",
                     NumberOfParameters=0,
-                    SubCommands=null
+                    SubCommands=null,
+                    Description="Toggles the debug mode."
                 },
                 new()
                 {
@@ -285,7 +287,8 @@ namespace TwitchPointsFarmer
                     HasUserArgs=false,
                     Label="clear",
                     NumberOfParameters=0,
-                    SubCommands=null
+                    SubCommands=null,
+                    Description="Clears the console."
                 },
                 new()
                 {
@@ -293,7 +296,8 @@ namespace TwitchPointsFarmer
                     HasUserArgs=true,
                     Label="msgall",
                     NumberOfParameters=-1,
-                    SubCommands=null
+                    SubCommands=null,
+                    Description="Sends a message to all connected registered channels."
                 },
                 new()
                 {
@@ -301,14 +305,16 @@ namespace TwitchPointsFarmer
                     HasUserArgs=true,
                     Label="msgto",
                     NumberOfParameters=-1,
-                    SubCommands=null
+                    SubCommands=null,
+                    Description="Send a message to a specific channel."
                 },
                 new(){
                     Action=new Action<object[]>(ShowHelp),
                     HasUserArgs=false,
                     Label="help",
                     NumberOfParameters=0,
-                    SubCommands=null
+                    SubCommands=null,
+                    Description="Shows all commands available."
                 }
             };
             return commands;
@@ -374,13 +380,15 @@ namespace TwitchPointsFarmer
         }
         public void ShowHelp(object[] args)
         {
-            Log("Available commands:");
-            foreach (Command command in GetCommands())
+            new Thread(() =>
             {
-                Log("\t" + command.Label);
-                Log("\t\t Nº of args: "+command.NumberOfParameters);
-                Log("\t\t Has user args: "+command.HasUserArgs);
-            }
+                string message = "Available commands:\n";
+                foreach (Command command in GetCommands())
+                {
+                    message += $"{command.Label}= {command.Description}\n";
+                }
+                Log(message);
+            }).Start();
         }
 
         #endregion

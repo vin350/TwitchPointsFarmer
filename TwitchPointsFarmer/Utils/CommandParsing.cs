@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TwitchPointsFarmer.Models;
 using TwitchPointsFarmer.Utils.Exceptions;
 
 namespace TwitchPointsFarmer.Utils
@@ -64,13 +65,5 @@ namespace TwitchPointsFarmer.Utils
             Parse(string.Join(' ', args));
         }
 
-    }
-    public class Command
-    {
-        public string Label { get; set; }
-        public IEnumerable<Command> SubCommands { get; set; }
-        public bool HasUserArgs { get; set; }
-        public int NumberOfParameters { get; set; }
-        public Action<object[]> Action { get; set; }
     }
 }
