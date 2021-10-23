@@ -1,37 +1,31 @@
-## Welcome to GitHub Pages
+# TwitchPointsFarmer
 
-You can use the [editor on GitHub](https://github.com/vin350/TwitchPointsFarmer/edit/master/docs/index.md) to maintain and preview the content for your website in Markdown files.
+This project aims to help those people who keeps many Twitch livestreams open 24/7 farming those *channel points*. 
+It helps them by providing a costless interface, and by making possible farming multiple accounts in multiple streams at once.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## How to Install
 
-### Markdown
+To install the app, follow these instructions:
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+1. Download the `setup.exe` from the [latest release](https://github.com/vin35/TwitchPointsFarmer/releases/latest) of the project.
+2. Open the `setup.exe` and follow the wizard.
+3. After the installation is complete, you can start the app by clicking the `TwitchPointsFarmer.exe` icon in the taskbar or in the Start Menu.
 
-```markdown
-Syntax highlighted code block
+## How to use
 
-# Header 1
-## Header 2
-### Header 3
+Fist view of the app:
 
-- Bulleted
-- List
+<img src="https://i.imgur.com/V9LNAnz.png" width=80% height=80% />
 
-1. Numbered
-2. List
+1. First, add all the channel names that will be "viewed" on the top left menu.
+2. Now add your username and authentication token(can be acessed [here](https://twitchapps.com/tmi/)) on the bottom right menu.
+<img src="https://i.imgur.com/tHINvFQ.png" width=80% height=80% />
 
-**Bold** and _Italic_ and `Code` text
+3. Click Start and leave it running. 
+<img src="https://i.imgur.com/vAdWPNn.png" width=80% height=80% />
 
-[Link](url) and ![Image](src)
-```
+4. Enjoy those effortless points!
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+## Issues and Contributing
 
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/vin350/TwitchPointsFarmer/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+If you discover any issues, questions or ideas, please report/ask/say them [here](https://github.com/vin350/TwitchPointsFarmer/issues). And, if you want to contribute or add a new feature, feel free to fork the project [here](https://github.com/vin350/TwitchPointsFarmer/fork) and create a pull request after you've done your changes. 
