@@ -71,7 +71,6 @@ namespace TwitchPointsFarmer
         public MainWindow()
         {
             InitializeComponent();
-            AutoUpdater.CheckForUpdates();
 
             //class instancing
             BotManager = new();
@@ -80,11 +79,12 @@ namespace TwitchPointsFarmer
             MyUsers = new();
             Logger = new Logger(this);
             CommandParsing = new(GetCommands());
-            AutoUpdater = new(new(1, 1), this);
+            AutoUpdater = new(new(1, 0), this);
 
             //events
             Closing += WindowCloseEvent;
 
+            AutoUpdater.CheckForUpdates();
             Save.Load(out _MyUsers, out _MyChannels);
             UpdateUI();
             Logger.Log("System Loaded");
