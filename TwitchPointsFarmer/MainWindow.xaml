@@ -30,7 +30,7 @@
                             <Button Click="AddChannelButton_Click" x:Name="AddChannelButton" Content="Add Channel" Margin="2"/>
                             <Button Click="RemChannelButton_Click" x:Name="RemChannelButton" Content="Rem Channel" Margin="2"/>
                         </StackPanel>
-                        <ListBox x:Name="ChannelsListBox">
+                        <ListBox x:Name="ChannelsListBox" BorderBrush="Transparent">
 
                         </ListBox>
                     </StackPanel>
@@ -47,7 +47,7 @@
                             <Button x:Name="RemAccountButton" Content="Rem Account" Margin="2"
                                     Click="RemAccountButton_Click"/>
                         </StackPanel>
-                        <ListBox x:Name="AccountsListBox">
+                        <ListBox x:Name="AccountsListBox" BorderBrush="Transparent">
 
                         </ListBox>
                     </StackPanel>
