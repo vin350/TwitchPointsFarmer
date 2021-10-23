@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using TwitchPointsFarmer.Components;
 using TwitchPointsFarmer.Models;
 using TwitchPointsFarmer.Utils;
@@ -242,6 +243,13 @@ namespace TwitchPointsFarmer
             }
         }
 
+        private void ConsoleInput_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                SendCommandButton_Click(sender, e);
+            }
+        }
         #endregion
 
         #region Methods
