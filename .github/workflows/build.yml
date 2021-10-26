@@ -1,0 +1,40 @@
+name: Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ dev ]
+  pull_request:
+    branches: [ dev ]
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore -c Release
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: Build
+        path: TwitchPointsFarmer/bin/Release/net5.0-windows/*
+    - name: Release
+      id: automatic_releases
+      uses: marvinpinto/action-automatic-releases@v1.2.1
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        automatic_release_tag: "latest"
+        title: "Development Build"
+        files: |
+            Deployment/Releases/Setup.exe
