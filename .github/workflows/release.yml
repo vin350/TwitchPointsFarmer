@@ -1,0 +1,47 @@
+name: Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore -c Release
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: Build
+        path: ${{ github.workspace }}
+    - name: Get Version
+      uses: kzrnm/get-net-sdk-project-versions-action@v1.1.1
+      id: get-version
+      with:
+        proj-path: TwitchPointsFarmer/TwitchPointsFarmer.csproj
+    - name: Release
+      id: release
+      uses: shogo82148/actions-create-release@v1
+      with:
+        tag_name: ${{ steps.get-version.outputs.version }}
+        release_name: Release v${{ steps.get-version.outputs.version }}
+        generate_release_notes: true
+    - name: Upload Release
+      uses: shogo82148/actions-upload-release-asset@v1.3.2
+      with:
+        upload_url: ${{ steps.release.outputs.upload_url }}
+        asset_path: |
+                Deployment/Releases/RELEASES
+                Deployment/Releases/TwitchPointsFarmer-${{ steps.get-version.outputs.version }}-full.nupkg
+                Deployment/Releases/Setup.exe
