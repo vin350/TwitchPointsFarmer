@@ -5,8 +5,8 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <StartupObject></StartupObject>
-    <AssemblyVersion>1.0.2</AssemblyVersion>
-    <FileVersion>1.0.2</FileVersion>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>1.0.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,7 +24,7 @@
     <NugetTools>$(PkgNuGet_CommandLine)/tools</NugetTools>
     <SquirrelTools>$(PkgSquirrel_windows)/tools</SquirrelTools>
 
-    <Version>1.0.2</Version>
+    <Version>1.0.0</Version>
 
     <NuspecFile>$(SolutionDir)TwitchPointsFarmer\ReleaseSpec.nuspec</NuspecFile>
   </PropertyGroup>
