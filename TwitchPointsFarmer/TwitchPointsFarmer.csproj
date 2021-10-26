@@ -7,13 +7,37 @@
     <StartupObject></StartupObject>
     <AssemblyVersion>1.0.2</AssemblyVersion>
     <FileVersion>1.0.2</FileVersion>
-    <Version>1.0.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Emoji.Wpf" Version="0.3.3" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="NuGet.CommandLine" Version="5.11.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="squirrel.windows" Version="1.9.0" />
     <PackageReference Include="TwitchLib" Version="3.2.0" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <NugetTools>$(PkgNuGet_CommandLine)/tools</NugetTools>
+    <SquirrelTools>$(PkgSquirrel_windows)/tools</SquirrelTools>
+
+    <Version>1.0.2</Version>
+
+    <NuspecFile>$(SolutionDir)TwitchPointsFarmer\ReleaseSpec.nuspec</NuspecFile>
+  </PropertyGroup>
+
+  <Target Name="GenerateRelease" AfterTargets="AfterBuild" Condition="$(Configuration) == Release">
+    <XmlPeek XmlInputPath="$(NuspecFile)" Query="/package/metadata/id/text()">
+      <Output TaskParameter="Result" ItemName="ID" />
+    </XmlPeek>
+
+    <Exec Command="$(NugetTools)\NuGet.exe pack $(NuspecFile) -Version $(Version) -Properties Configuration=Release -OutputDirectory $(SolutionDir)Deployment\GeneratedNugets" />
+    
+    <Exec Command="$(SquirrelTools)\Squirrel.exe --releasify $(SolutionDir)Deployment\GeneratedNugets\@(ID).$(Version).nupkg --releaseDir=$(SolutionDir)Deployment\Releases" />
+
+  </Target>
+  
 </Project>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>TwitchPointsFarmer</id>
+    <version>0.0.0</version>
+    <title>TwitchPointsFarmer</title>
+    <authors>vin350 and Agentew04</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">CC0-1.0</license>
+    <projectUrl>https://github.com/vin350/TwitchPointsFarmer</projectUrl>
+    <description>This project aims to help those people who keeps many Twitch livestreams open 24/7 farming those channel points.</description>
+    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <copyright>2021</copyright>
+    <tags>Twitch</tags>
+  </metadata>
+  
+  <files>
+	<file src="bin\Release\net5.0-windows\**" target="lib\net45"/>
+  </files>
+</package>
