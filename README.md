@@ -7,9 +7,9 @@ It helps them by providing a costless interface, and by making possible farming 
 
 To install the app, follow these instructions:
 
-1. Download the `setup.exe` from the [latest release](https://github.com/vin35/TwitchPointsFarmer/releases/latest) of the project.
-2. Open the `setup.exe` and follow the wizard.
-3. After the installation is complete, you can start the app by clicking the `TwitchPointsFarmer.exe` icon in the taskbar or in the Start Menu.
+1. Download the `setup.exe` from the [latest release](https://github.com/vin350/TwitchPointsFarmer/releases/latest) of the project.
+2. Open the `setup.exe`.
+3. After the installation is complete, you can start the app by clicking the `TwitchPointsFarmer.exe` icon in the desktop or in the Start Menu.
 
 ## How to use
 

@@ -29,14 +29,16 @@
     <NuspecFile>$(SolutionDir)TwitchPointsFarmer\ReleaseSpec.nuspec</NuspecFile>
   </PropertyGroup>
 
-  <Target Name="GenerateRelease" AfterTargets="AfterBuild" Condition="$(Configuration) == Release">
+  <Target Name="GenerateRelease" AfterTargets="AfterBuild">
+    <Copy SourceFiles="$(SquirrelTools)\Squirrel.exe" DestinationFiles="$(OutDir)..\Update.exe" Condition="!Exists('$(OutDir)..\Update.exe')" />
+    
     <XmlPeek XmlInputPath="$(NuspecFile)" Query="/package/metadata/id/text()">
       <Output TaskParameter="Result" ItemName="ID" />
     </XmlPeek>
 
-    <Exec Command="$(NugetTools)\NuGet.exe pack $(NuspecFile) -Version $(Version) -Properties Configuration=Release -OutputDirectory $(SolutionDir)Deployment\GeneratedNugets" />
+    <Exec Condition=" '$(Configuration)' == 'Release'" Command="$(NugetTools)\NuGet.exe pack $(NuspecFile) -Version $(Version) -Properties Configuration=Release -OutputDirectory $(SolutionDir)Deployment\GeneratedNugets" />
     
-    <Exec Command="$(SquirrelTools)\Squirrel.exe --releasify $(SolutionDir)Deployment\GeneratedNugets\@(ID).$(Version).nupkg --releaseDir=$(SolutionDir)Deployment\Releases" />
+    <Exec Condition=" '$(Configuration)' == 'Release'" Command="$(SquirrelTools)\Squirrel.exe --releasify $(SolutionDir)Deployment\GeneratedNugets\@(ID).$(Version).nupkg --releaseDir=$(SolutionDir)Deployment\Releases" />
 
   </Target>
   

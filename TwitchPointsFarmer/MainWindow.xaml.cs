@@ -9,6 +9,7 @@ using System.Windows.Input;
 using TwitchPointsFarmer.Components;
 using TwitchPointsFarmer.Models;
 using TwitchPointsFarmer.Utils;
+using Squirrel;
 
 namespace TwitchPointsFarmer
 {
@@ -60,7 +61,7 @@ namespace TwitchPointsFarmer
         /// <summary>
         /// The class to manage app updates
         /// </summary>
-        public AutoUpdater AutoUpdater { get; set; }
+        UpdateManager manager;
 
         /// <summary>
         /// Determines if the Debug Mode is currently active
@@ -81,16 +82,16 @@ namespace TwitchPointsFarmer
             MyUsers = new();
             Logger = new Logger(this);
             CommandParsing = new(GetCommands());
-            AutoUpdater = new(new(1, 0), this);
 
             //events
             Closing += WindowCloseEvent;
+            Loaded += MainWindow_Loaded;
 
-            AutoUpdater.CheckForUpdates();
             Save.Load(out _MyUsers, out _MyChannels);
             UpdateUI();
             Logger.Log("System Loaded");
         }
+
 
 
 
@@ -99,6 +100,20 @@ namespace TwitchPointsFarmer
         private void WindowCloseEvent(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+        private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            manager = await UpdateManager.GitHubUpdateManager(@"https://github.com/vin350/TwitchPointsFarmer");
+            var updateInfo = await manager.CheckForUpdate();
+            if (updateInfo.ReleasesToApply.Count > 0)
+            {
+                await manager.UpdateApp();
+                Application.Current.Shutdown();
+            }
+            else
+            {
+                Log($"The app is up to date! {manager.CurrentlyInstalledVersion()}");
+            }
         }
 
         private void AddChannelButton_Click(object sender, RoutedEventArgs e)
