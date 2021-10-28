@@ -23,7 +23,7 @@ namespace TwitchPointsFarmer
         /// </summary>
         public List<User> MyUsers
         {
-            get{ return _MyUsers; }
+            get { return _MyUsers; }
             set { _MyUsers = value; }
         }
         private List<User> _MyUsers;
@@ -119,7 +119,7 @@ namespace TwitchPointsFarmer
         private void AddChannelButton_Click(object sender, RoutedEventArgs e)
         {
             var p = new InputWindow(content: "Channel name:",
-                                    windowTitle:"Add new");
+                                    windowTitle: "Add new");
             string inputRead = p.GetInput();
             if (inputRead == InputWindow.CancelConst) return;
             bool exists = MyChannels.Any(u => u == inputRead);
@@ -185,9 +185,9 @@ namespace TwitchPointsFarmer
              * aparece no UI. Então tem q fazer essas macumbas
              * pra conseguir deletar todos os q batem com o nome 
              */
-             
+
             //if it hasnt any entries, ignore click
-            if(MyUsers==null || MyUsers.Count == 0 || AccountsListBox.SelectedItem==null || AccountsListBox.SelectedIndex==-1)
+            if (MyUsers == null || MyUsers.Count == 0 || AccountsListBox.SelectedItem == null || AccountsListBox.SelectedIndex == -1)
             {
                 return;
             }
@@ -205,12 +205,20 @@ namespace TwitchPointsFarmer
         {
             await Task.Run(() =>
             {
-                Logger.Log("Starting...");
+                if (MyUsers == null || MyUsers.Count == 0)
+                {
+                    Log("No users added!");
+                    return;
+                }else if (MyChannels == null || MyChannels.Count == 0)
+                {
+                    Log("No channels added!");
+                    return;
+                }
                 foreach (User MyUser in MyUsers)
                 {
                     foreach (string MyChannel in MyChannels)
                     {
-                        Logger.Log("trying to connect " + MyUser.Username + " into " + MyChannel);
+                        Log("trying to connect " + MyUser.Username + " into " + MyChannel);
                         Bot bot = new(MyUser.Username, MyUser.AuthCode, MyChannel, this);
                     }
                 }
@@ -237,9 +245,11 @@ namespace TwitchPointsFarmer
                 Warn("The command input is empty!");
                 return;
             }
-            try{
+            try
+            {
                 CommandParsing.Parse(ConsoleInput.Text.Trim());
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 Error(ex.Message);
             }
