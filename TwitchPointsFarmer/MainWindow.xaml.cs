@@ -225,17 +225,20 @@ namespace TwitchPointsFarmer
             });
         }
 
-        private void StopButton_Click(object sender, RoutedEventArgs e)
+        private async void StopButton_Click(object sender, RoutedEventArgs e)
         {
-            List<Bot> temp = new();
-            BotManager.ForEach(x =>
+            await Task.Run(() =>
             {
-                x.Disconnect();
-                temp.Add(x);
+                List<Bot> temp = new();
+                BotManager.ForEach(x =>
+                {
+                    x.Disconnect();
+                    temp.Add(x);
+                });
+                temp.ForEach(x => BotManager.Remove(x));
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
             });
-            temp.ForEach(x => BotManager.Remove(x));
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
         }
 
         private void SendCommandButton_Click(object sender, RoutedEventArgs e)
