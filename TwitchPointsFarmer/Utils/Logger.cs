@@ -25,12 +25,12 @@ namespace TwitchPointsFarmer.Utils
             DateTime date = DateTime.Now;
             message = $"[{date.Day}/{date.Month} {date.Hour}:{date.Minute}:{date.Second} - LOG] {message}";
             //main.ConsoleBox.Text += message + "\n";
-            main.ConsoleBox.Dispatcher.Invoke(new Action(() =>
+            main.ConsoleBox.Dispatcher.Invoke(() =>
             {
                 main.ConsoleBox.AppendText(message);
                 main.ConsoleBox.AppendText(Environment.NewLine);
                 main.ConsoleBox.ScrollToEnd();
-            }));
+            });
         }
         /// <summary>
         /// Outputs a warning on the console
@@ -41,12 +41,12 @@ namespace TwitchPointsFarmer.Utils
             DateTime date = DateTime.Now;
             message = $"[{date.Day}/{date.Month} {date.Hour}:{date.Minute}:{date.Second} - WARN] {message}";
             //main.ConsoleBox.Text += message + "\n";
-            main.ConsoleBox.Dispatcher.Invoke(new Action(() =>
+            main.ConsoleBox.Dispatcher.Invoke(() =>
             {
                 main.ConsoleBox.AppendText(message);
                 main.ConsoleBox.AppendText(Environment.NewLine);
                 main.ConsoleBox.ScrollToEnd();
-            }));
+            });
         }
         /// <summary>
         /// Outputs an error message on the console
@@ -57,12 +57,12 @@ namespace TwitchPointsFarmer.Utils
             DateTime date = DateTime.Now;
             message = $"[{date.Day}/{date.Month} {date.Hour}:{date.Minute}:{date.Second} - ERROR] {message}";
             //main.ConsoleBox.Text += message + "\n";
-            main.ConsoleBox.Dispatcher.Invoke(new Action(() =>
+            main.ConsoleBox.Dispatcher.Invoke(() =>
             {
                 main.ConsoleBox.AppendText(message);
                 main.ConsoleBox.AppendText(Environment.NewLine);
                 main.ConsoleBox.ScrollToEnd();
-            }));
+            });
         }
 
         /// <summary>
@@ -70,11 +70,11 @@ namespace TwitchPointsFarmer.Utils
         /// </summary>
         public void Clear()
         {
-            main.ConsoleBox.Dispatcher.Invoke(new Action(() =>
+            main.ConsoleBox.Dispatcher.Invoke(() =>
             {
                 main.ConsoleBox.Text = "";
                 main.ConsoleBox.ScrollToEnd();
-            }));
+            });
         }
     }
 }

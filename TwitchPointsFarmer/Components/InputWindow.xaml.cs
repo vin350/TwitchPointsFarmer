@@ -31,7 +31,7 @@ namespace TwitchPointsFarmer.Components
 
             TitleTextBox.Text = content;
             InputTextBox.Text = defaultValue;
-            this.Title = windowTitle;
+            Title = windowTitle;
 
             TitleTextBox.FontFamily = new FontFamily(fontFamily);
             InputTextBox.FontFamily = new FontFamily(fontFamily);
@@ -41,7 +41,7 @@ namespace TwitchPointsFarmer.Components
             //event handling
             OkButton.Click += OkClicked;
             CancelButtton.Click += CancelClicked;
-            this.KeyDown += KeyPressed;
+            KeyDown += KeyPressed;
 
             //foca na text box pra n precisar clicar
             InputTextBox.Focus();
@@ -60,7 +60,7 @@ namespace TwitchPointsFarmer.Components
 
         public string GetInput()
         {
-            this.ShowDialog();
+            ShowDialog();
             if (IsCancelled)
             {
                 return CancelConst;
@@ -76,13 +76,13 @@ namespace TwitchPointsFarmer.Components
             }
             else
             {
-                this.Close();
+                Close();
             }
         }
         private void CancelClicked(object sender, RoutedEventArgs e)
         {
-            this.IsCancelled = true;
-            this.Close();
+            IsCancelled = true;
+            Close();
         }
     }
 }

@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Squirrel;
 using TwitchPointsFarmer.Components;
 using TwitchPointsFarmer.Models;
 using TwitchPointsFarmer.Utils;
-using Squirrel;
 
 namespace TwitchPointsFarmer
 {
@@ -66,7 +67,7 @@ namespace TwitchPointsFarmer
         /// <summary>
         /// Determines if the Debug Mode is currently active
         /// </summary>
-        public bool IsDebugModeActive { get; set; } = false;
+        public bool IsDebugModeActive { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/>
@@ -97,7 +98,7 @@ namespace TwitchPointsFarmer
 
         #region Events
 
-        private void WindowCloseEvent(object sender, System.ComponentModel.CancelEventArgs e)
+        private void WindowCloseEvent(object sender, CancelEventArgs e)
         {
             Application.Current.Shutdown();
         }
@@ -108,7 +109,7 @@ namespace TwitchPointsFarmer
             if (updateInfo.ReleasesToApply.Count > 0)
             {
                 await manager.UpdateApp();
-                Application.Current.Shutdown();
+                UpdateManager.RestartApp("TwitchPointsFarmer.exe");
             }
             else
             {
@@ -209,7 +210,8 @@ namespace TwitchPointsFarmer
                 {
                     Log("No users added!");
                     return;
-                }else if (MyChannels == null || MyChannels.Count == 0)
+                }
+                if (MyChannels == null || MyChannels.Count == 0)
                 {
                     Log("No channels added!");
                     return;
@@ -306,18 +308,18 @@ namespace TwitchPointsFarmer
 
         public IEnumerable<Command> GetCommands()
         {
-            IEnumerable<Command> commands = new List<Command>()
+            IEnumerable<Command> commands = new List<Command>
             {
                 new()
                 {
-                    Action=new Action<object[]>(ToggleDebugMode),
+                    Action=ToggleDebugMode,
                     HasUserArgs=false,
                     Label="debug",
                     NumberOfParameters=0,
                     SubCommands=null,
                     Description="Toggles the debug mode.",
                     Usage="debug",
-                    Aliases=new List<string>()
+                    Aliases=new List<string>
                     {
                         "d",
                         "dbg"
@@ -325,28 +327,28 @@ namespace TwitchPointsFarmer
                 },
                 new()
                 {
-                    Action=new Action<object[]>(ClearConsole),
+                    Action=ClearConsole,
                     HasUserArgs=false,
                     Label="clear",
                     NumberOfParameters=0,
                     SubCommands=null,
                     Description="Clears the console.",
                     Usage="clear",
-                    Aliases=new List<string>()
+                    Aliases=new List<string>
                     {
                         "cls"
                     }
                 },
                 new()
                 {
-                    Action=new Action<object[]>(SendMessageToAll),
+                    Action=SendMessageToAll,
                     HasUserArgs=true,
                     Label="messageall",
                     NumberOfParameters=-1,
                     SubCommands=null,
                     Description="Sends a message to all connected registered channels.",
                     Usage="messageall <message>",
-                    Aliases=new List<string>()
+                    Aliases=new List<string>
                     {
                         "msgall",
                         "msg"
@@ -354,28 +356,28 @@ namespace TwitchPointsFarmer
                 },
                 new()
                 {
-                    Action=new Action<object[]>(SendMessageTo),
+                    Action=SendMessageTo,
                     HasUserArgs=true,
                     Label="messageto",
                     NumberOfParameters=-1,
                     SubCommands=null,
                     Description="Send a message to a specific channel.",
                     Usage="messageto <channel> <message>",
-                    Aliases=new List<string>()
+                    Aliases=new List<string>
                     {
                         "msgto",
                         "msgchannel"
                     }
                 },
                 new(){
-                    Action=new Action<object[]>(ShowHelp),
+                    Action=ShowHelp,
                     HasUserArgs=false,
                     Label="help",
                     NumberOfParameters=0,
                     SubCommands=null,
                     Description="Shows all commands available.",
                     Usage="help",
-                    Aliases=new List<string>()
+                    Aliases=new List<string>
                     {
                         "h",
                         "?"

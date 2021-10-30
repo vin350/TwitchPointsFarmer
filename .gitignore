@@ -354,4 +354,4 @@ MigrationBackup/
 TwitchPointsFarmer/config.json
 .vscode/
 vscode/
-.vscode/launch.json
+.idea/

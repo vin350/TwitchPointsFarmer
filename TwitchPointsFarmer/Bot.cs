@@ -1,15 +1,11 @@
 ﻿using System;
 using TwitchLib.Client;
-using TwitchLib.Client.Enums;
 using TwitchLib.Client.Events;
-using TwitchLib.Client.Extensions;
 using TwitchLib.Client.Models;
 using TwitchLib.Communication.Clients;
 using TwitchLib.Communication.Events;
 using TwitchLib.Communication.Models;
-using TwitchPointsFarmer.Components;
-using TwitchPointsFarmer.Models;
-using TwitchPointsFarmer.Utils;
+
 namespace TwitchPointsFarmer
 {
     public class Bot

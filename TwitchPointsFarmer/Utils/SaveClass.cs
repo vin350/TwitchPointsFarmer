@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using TwitchPointsFarmer.Models;
 using System.IO;
-using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using TwitchPointsFarmer.Models;
 
 namespace TwitchPointsFarmer.Utils
 {
