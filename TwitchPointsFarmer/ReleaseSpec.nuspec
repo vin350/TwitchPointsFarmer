@@ -14,6 +14,6 @@
   </metadata>
   
   <files>
-	<file src="bin\Release\net5.0-windows\*" target="lib\net45" exclude="*.pdb"/>
+	<file src="bin\Release\net5.0-windows\*" target="lib\net45" exclude="bin\Release\net5.0-windows\*.pdb"/>
   </files>
 </package>
