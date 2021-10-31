@@ -9,8 +9,8 @@ namespace TwitchPointsFarmer.Utils
 {
     public class SaveClass
     {
-        public string FolderPath { get; } = Environment.CurrentDirectory;
-        public string FilePath { get; } = Environment.CurrentDirectory + @"\config.json";
+        public string FolderPath { get; } = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)+@"\AppData\Local\Rodrigo's_Stuff\TwitchPointsFarmer";  //Environment.CurrentDirectory;
+        public string FilePath { get; } =  Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)+@"\AppData\Local\Rodrigo's_Stuff\TwitchPointsFarmer\config.json";
         private JObject DefaultJson { get; } = new(
                     new JProperty("users", new JArray()),
                     new JProperty("channels", new JArray()));
