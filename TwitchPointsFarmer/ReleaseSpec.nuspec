@@ -9,12 +9,11 @@
     <license type="expression">CC0-1.0</license>
     <projectUrl>https://github.com/vin350/TwitchPointsFarmer</projectUrl>
     <description>This project aims to help those people who keeps many Twitch livestreams open 24/7 farming those channel points.</description>
-    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
     <copyright>2021</copyright>
     <tags>Twitch</tags>
   </metadata>
   
   <files>
-	<file src="bin\Release\net5.0-windows\**" target="lib\net45"/>
+	<file src="bin\Release\net5.0-windows\*" target="lib\net45" exclude="*.pdb"/>
   </files>
 </package>
