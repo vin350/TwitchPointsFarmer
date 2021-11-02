@@ -151,11 +151,9 @@ namespace TwitchPointsFarmer
         {
             InputWindow usernameInput = new(content: "Username: ", windowTitle: "Add new");
             InputWindow authcodeInput = new(content: "AuthCode: ", windowTitle: "Add new");
-            string username;
-            string authcode;
 
             //get username
-            username = usernameInput.GetInput();
+            var username = usernameInput.GetInput();
             if (username == InputWindow.CancelConst) return;
             //check if user already exists using LINQ
             bool exists = MyUsers.Any(u => u.Username == username);
@@ -165,7 +163,7 @@ namespace TwitchPointsFarmer
                 return;
             }
 
-            authcode = authcodeInput.GetInput();
+            var authcode = authcodeInput.GetInput();
             if (authcode == InputWindow.CancelConst) return;
             User user = new() { Username = username, AuthCode = authcode };
 
@@ -181,12 +179,6 @@ namespace TwitchPointsFarmer
 
         private void RemAccountButton_Click(object sender, RoutedEventArgs e)
         {
-            /* OBS.: Aqui eu usei LINQ pra pegar o username
-             * pq cada user tem o nome e o código e esse não
-             * aparece no UI. Então tem q fazer essas macumbas
-             * pra conseguir deletar todos os q batem com o nome 
-             */
-
             //if it hasnt any entries, ignore click
             if (MyUsers == null || MyUsers.Count == 0 || AccountsListBox.SelectedItem == null || AccountsListBox.SelectedIndex == -1)
             {
@@ -409,41 +401,47 @@ namespace TwitchPointsFarmer
 
         public void ClearConsole(object[] args)
         {
-            ConsoleBox.Clear();
+            Clear();
         }
 
         public void SendMessageToAll(object[] args)
         {
-            string message = "";
-            foreach (var arg in args)
+            new Thread(() =>
             {
-                message = message + " " + arg;
-            }
-            foreach (Bot index in BotManager)
-            {
-                index.SendMessage(message);
-            }
+                string message = "";
+                foreach (var arg in args)
+                {
+                    message += arg + " ";
+                }
+                foreach (Bot index in BotManager)
+                {
+                    index.SendMessage(message);
+                }
+            }).Start();
         }
 
         public void SendMessageTo(object[] args)
         {
-            string message = "";
-            string Channel = "" + args[0] + "";
-            foreach (var arg in args)
+            new Thread(() =>
             {
-                if ((string)arg != Channel)
+                string message = "";
+                string Channel = "" + args[0] + "";
+                foreach (var arg in args)
                 {
-                    message = message + " " + arg;
+                    if ((string)arg != Channel)
+                    {
+                        message += arg + " ";
+                    }
                 }
-            }
-            foreach (Bot index in BotManager)
-            {
-                string Ch = index.GetActChannel();
-                if (Ch.ToLower() == Channel.ToLower())
+                foreach (Bot index in BotManager)
                 {
-                    index.SendMessageTo(Ch, message);
+                    string Ch = index.GetActChannel();
+                    if (Ch.ToLower() == Channel.ToLower())
+                    {
+                        index.SendMessageTo(Ch, message);
+                    }
                 }
-            }
+            }).Start();
         }
         public void ShowHelp(object[] args)
         {
