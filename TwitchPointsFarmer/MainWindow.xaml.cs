@@ -212,6 +212,14 @@ namespace TwitchPointsFarmer
                 {
                     foreach (string MyChannel in MyChannels)
                     {
+                        foreach (var botstarted in BotManager)
+                        {
+                            if (botstarted.ActUsername == MyUser.Username && botstarted.GetActChannel() == MyChannel)
+                            {
+                                Log("Account " + MyUser.Username + " already started!");
+                                return;
+                            }
+                        }
                         Log("trying to connect " + MyUser.Username + " into " + MyChannel);
                         Bot bot = new(MyUser.Username, MyUser.AuthCode, MyChannel, this);
                     }
