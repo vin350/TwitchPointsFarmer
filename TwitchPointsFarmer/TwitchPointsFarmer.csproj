@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <StartupObject></StartupObject>
     <AssemblyVersion>1.0.0</AssemblyVersion>
@@ -12,12 +12,12 @@
   <ItemGroup>
     <PackageReference Include="Emoji.Wpf" Version="0.3.3" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="NuGet.CommandLine" Version="5.11.0">
+    <PackageReference Include="NuGet.CommandLine" Version="6.3.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="squirrel.windows" Version="1.9.0" />
-    <PackageReference Include="TwitchLib" Version="3.2.0" />
+    <PackageReference Include="TwitchLib" Version="3.4.1" />
   </ItemGroup>
 
   <PropertyGroup>
